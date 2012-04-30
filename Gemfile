@@ -1,2 +1,2 @@
 source :gemcutter
-gem 'sinatra'
+gem "sinatra", "1.0"
