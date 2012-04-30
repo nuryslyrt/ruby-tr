@@ -1,1 +1,1 @@
-gem "redcarpet"
+gem 'redcarpet'
