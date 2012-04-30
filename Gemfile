@@ -1,2 +1,2 @@
-#gem 'sinatra'
-
+source :gemcutter
+gem 'sinatra'
