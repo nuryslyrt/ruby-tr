@@ -1,7 +1,16 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    coderay (1.0.6)
+    haml (3.1.4)
+    haml-coderay (0.1.2)
+      coderay
+      haml
+    nokogiri (1.5.0)
     rack (1.4.1)
+    rack-codehighlighter (0.5.0)
+      nokogiri (>= 1.4.1)
+      rack (>= 1.0.0)
     rack-protection (1.2.0)
       rack
     redcarpet (2.1.1)
@@ -15,5 +24,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  coderay
+  haml
+  haml-coderay
+  rack-codehighlighter
   redcarpet
   sinatra

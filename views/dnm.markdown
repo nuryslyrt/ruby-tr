@@ -1,3 +1,10 @@
+'''ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+'''
+
+
 git-wiki: because who needs cool names when you use git?
 ========================================================
 
