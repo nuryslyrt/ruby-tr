@@ -1,8 +1,10 @@
-#encoding: utf-8
 require "sinatra"
 
+
 get "/" do
-  haml :dnm 
+  haml :dnm
+  #haml "Merhaba Dünya"
+  #puts RUBY_VERSION,  RUBY_PLATFORM,  Encoding.default_external,  Encoding.default_internal
 end
 
 get "/code" do
@@ -20,6 +22,6 @@ __END__
   %head  
     %title Ruby Türkiye  
     %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" } 
+    %link(rel="stylesheet" href="coderay1.css")
   %body  
-    %link(rel="stylesheet" href="coderay.css")
     = yield
