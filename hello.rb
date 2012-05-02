@@ -13,15 +13,3 @@ get "/code" do
 	</pre>"
 end
 
-__END__
-
-@@layout
-
-!!!  
-%html  
-  %head  
-    %title Ruby Türkiye  
-    %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" } 
-    %link(rel="stylesheet" href="coderay1.css")
-  %body  
-    = yield
