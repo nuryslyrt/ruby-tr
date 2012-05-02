@@ -5,8 +5,19 @@
     %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" } 
     %link(rel="stylesheet" href="assets/css/bootstrap.css")
     %link(rel="stylesheet" href="coderay.css")
-    %link(rel="stylesheet" href="style.css")
-  %body  
+    %link(rel="stylesheet" href="style2.css")
+  %body
+    %div.navbar.navbar-fixed-top
+      %div.navbar-inner
+        %div.container
+          %div.nav-collapse
+            %ul.nav
+              %li 
+                %a(href="/") Anasayfa
+              %li 
+                %a(href="/contact") İletişim
+              %li 
+                %a(href="/about") Hakkımızda
     %div.container
       = yield
     %div.footer
