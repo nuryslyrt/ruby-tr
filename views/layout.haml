@@ -3,9 +3,9 @@
   %head  
     %title Ruby Türkiye  
     %meta{:"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8" } 
-    %link(rel="stylesheet" href="assets/css/bootstrap.css")
-    %link(rel="stylesheet" href="coderay.css")
-    %link(rel="stylesheet" href="style2.css")
+    %link(rel="stylesheet" href="/assets/css/bootstrap.css")
+    %link(rel="stylesheet" href="/coderay.css")
+    %link(rel="stylesheet" href="/style2.css")
   %body
     %div.navbar.navbar-fixed-top
       %div.navbar-inner
@@ -15,9 +15,13 @@
               %li 
                 %a(href="/") Anasayfa
               %li 
+                %a(href="/kitap/0") Kitap
+              %li 
                 %a(href="/contact") İletişim
               %li 
                 %a(href="/about") Hakkımızda
+              %li 
+                %a(href="/bize_katilin") Bize Katılın
     %div.container
       = yield
     %div.footer
