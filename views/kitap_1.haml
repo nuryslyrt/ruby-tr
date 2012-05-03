@@ -1,0 +1,215 @@
+-# coding: UTF-8
+
+%div.row
+  %div.leaderboard
+    %h1 Ruby ve Rails 
+
+%br
+
+%div.row
+  %div.span12
+    %h3 Ruby Nedir?
+    %p 
+      Ruby birçok özelliği diğer ‘script’ diller Perl ve Python’a benzeyen platform 
+      bağımsız yorumlayıcılı bir dildir. İngilizce benzeri bir komut setine sahiptir ve 
+      koda ilk bakışta Pascal benzeri gelir. Tamamıyla nesne temellidir ve Smalltalk 
+      dedesinin OO özelliklerinden çok şey almıştır. Ruby’nin en çok etkilendiği 
+      diller olarak Perl, Smalltalk, Eiffel, Ada ve Lisp gösterilir. Ruby dili Yukihiro 
+      Matsumoto (bilinen adıyla ‘Matz’) tarafından ilk defa 1995’te yayınlanmıştır.
+    %h3 Rails Nedir?
+    %p
+      Şu sıralar Ruby en ateşli olarak Rails adı verilen bir web geliştirme iskeletinde 
+      kullanılmaktadır, popüler adı ‘Ruby On Rails’ tir. Rails çok etkileyici bir iskelettir 
+      fakat Ruby’nin herşeyi değildir. Gerçekte Ruby’de uzmanlaşmadan Rails ile 
+      geliştirme yaparsanız yaptığınız uygulamaların nasıl çalıştığını kavrayamazsınız 
+      ( bu birçok acemi Rails geliştiricisinin hatasıdır ). Ruby’yi anlamak Rails’i anlamak 
+      öncesi gerekli adımdır.
+    %hr
+    %h3 Ruby’yi İndirmek
+    %p
+      Ruby son versiyonu 
+      %a(href="http://www.ruby-lang.org")http://www.ruby-lang.org 
+      adresinden indirebilirsiniz. Kurulum dosyalarını indirmeye dikkat edin (kaynak 
+      kodu dosyaları ile karıştırmayın). Windows bilgisayarlarda Ruby kurmak için Ruby 
+      Installer kullanılır:
+    %p.orta
+      %a(href="http://rubyinstaller.org") http://rubyinstaller.org 
+    %br
+    
+    %h3 RUBY PROGRAMLARI ÇALIŞTIRMAK
+    %p
+      Genellikle Ruby programınızın bulunduğu klasörde bulunan bir terminalin açık 
+      tutulması kullanışlı olur. Ruby derleyicinin bulunduğu klasörün path değişkeninde 
+      tanımlı olduğu kabul edilirse, programlarınızı 
+      %i ruby &ltprogram adı> 
+      komutuyla çalıştırabilirsiniz:
+    %pre.orta ruby 1helloworld.rb
+    %br
+    %h3 RUBY LIBRARY DÖKÜMANLARI
+    %p
+      Bu kitap Ruby standart kütüphanedeki birçok sınıf ve metodu içerir - fakat 
+      hepsini değil! Bu nedenle bazı durumlarda Ruby’nin kullandığı tüm sınıfların 
+      dökümanına ihtiyaç duyacaksınız. Şükür ki Ruby sınıf kütüphanesi farklı 
+      formatlarda kolaylıkla taranabilen dökümanı da içerir. Örneğin şu adreste çok 
+      bölmeli bir web sayfası şeklinde online dökümanlar bulunmakta:
+    %p.orta
+      %a(href="http://www.ruby-doc.org/core/")http://www.ruby-doc.org/core/
+    %br
+    
+    %p Alternatif olarak, şurada kütüphane alfabetik sıralanmış halde:
+    %p.orta
+      %a(href="http://www.ruby-doc.org/stdlib/")http://www.ruby-doc.org/stdlib/
+    %br
+    
+    %p
+      Yukarıdaki sayfa offline olarak dökümanı nasıl kullanacağınızı da anlatmakta. 
+      Ayrıca bir başka sayfada library ve diğer dökümanları değişik formatlarda ve 
+      dillerde indirebilirsiniz:
+    %p.orta
+      %a(href="http://www.ruby-doc.org/downloads/")http://www.ruby-doc.org/downloads/
+    %br
+    
+    %p TAMAM bu kadar giriş yeterli - hadi çalışmaya başlayalım. Hareket başlasın doğru Bölüm-1 e...
+    %hr
+    
+    %h1.orta BÖLÜM 1
+    
+    %h3 Stringler, Sayılar, Sınıflar ve Objeler
+    %p
+      Ruby hakkında öğrenilecek ilk şey kullanımının kolay olaması. Bunu sınamak için 
+      klasik “Hello World” programına bakalım. İşte:
+    %br
+    %h4.sag 1helloworld.rb
+    
+    :coderay
+      #!Ruby
+      
+      puts 'hello world'
+    
+    %br
+    %br
+    %p
+      Tamamı bu kadar. Birtek metod, 
+      %b puts 
+      ve bir string, 
+      %i “hello world”. 
+      Herhangi bir header yada sınıf tanımı yok, import kısmı yok, main fonksiyonu 
+      yok. Hepsi bu kadar basit. Bu kodu 
+      %i 1helloworld.rb 
+      dosyasına koyup deneyin.
+    %br
+    
+    %h3 GİRDİ ALMAK VE YAZMAK
+    %p
+      Ekrana (burada terminal penceresi) bir şey yazmanın sonraki adımı genellikle bir 
+      girdi almak olacaktır. Tahmin edeceğiniz gibi, çıktıyı yazan 
+      %b puts 
+      ise girdi de gets metodu ile alınır. 
+      %i 2helloname.rb 
+      programı kullanıcıdan adını ister - diyelim adı Fred - ve sonra ekrana “Hello 
+      Fred” yazar. İşte kod:
+    %br
+    
+    %h4.sag 2helloname.rb
+    :coderay
+      #!Ruby
+      
+      print( 'Enter your name: ' )
+      name = gets()
+      puts( "Hello \#{name}" )
+    
+    %br
+    %p
+      Hala basit görünse de açıklanması gereken birkaç ayrıntı var. İlki dikkat 
+      ederseniz istek mesajı yazarken 
+      %b puts 
+      yerine 
+      %b print 
+      kullandım. Sebebi, 
+      %b puts 
+      yazının sonuna linefeed (alt satıra geçiş emri) ekler ama 
+      %b print 
+      yapmaz; ben burada kursörün istekte bulunan satırda kalmasını istedim.
+    %p
+      Sonraki satırda 
+      %b gets() 
+      komutuyla enter bastığı anda string okumasını sağladım. Bu string 
+      %b name 
+      adındaki değişkene kaydediliyor. Bu değişkeni önceden deklare etmedim 
+      ya da tipini belirtmedim. Ruby’de değişkeni kullandığınız anda tanımlanır 
+      ve tipi atanan değere göre belirlenir. Bu satırda ben 
+      %b name 
+      değişkenine bir string sakladım , böylece Ruby değişkenin bir string objesi 
+      olarak tanımlanacağını anlıyor.
+    %br
+    %div.alert.alert-info
+      Not: Ruby büyük küçük harf duyarlıdır. 
+      %b myvar 
+      isimli değişken ile 
+      %b myVar 
+      isimli değişken farklıdır. Projenizdeki 
+      %b name 
+      benzeri değikenler küçük harfle başlamalıdır (eğer büyük harfle başlarsa 
+      Ruby bunu sabit değer olarak alır - sabitleri ilerde anlatacağım).
+    %br
+    
+    %p
+      Bu arada. 
+      %b gets() 
+      sonundaki parantezler opsiyoneldir, aynı 
+      %b puts 
+      metodunda stringi çevreleyen parantez gibi, bu parantezleri 
+      kaldırsanız da kod çalışacaktır. Bununla beraber parantezler görsel olarak 
+      anlaşılabilirliği artırdığı için ve bazı durumlarda derleyici onları 
+      kullanmadığınızda hata verdiği için kullanılsa iyi olur.
+    %hr
+    %br
+    
+    %h3 STRINGLER VE GÖMÜLÜ İŞLEVLER
+    %p Örnek kodumuzdaki en son satır enteresan:
+    :coderay
+      #!Ruby
+      
+      puts( "Hello \#{name}" )
+      
+    %br
+    %p
+      Burada 
+      %b name 
+      değişkeni string içine gömülü kullanılmış, bunun için değiken adı süslü 
+      parantezler arasına konmuş ve önüne bir diyez harfi gelmiş. Bu tür 
+      %b gömülü 
+      işlevler sadece string çift tırnakla çevriliyse çalışacaktır. Eğer tek tırnak 
+      kullanılırsa işlev çalışmayacak ve 
+      %i ‘Hello \#{name}’ 
+      aynen göründüğü gibi yazılacaktır.
+    %p
+      Çift tırnak içinde sadece değişkenler işlenmez. Ayrıca “\n” (yeni satır) 
+      ve “\t” (tab) gibi basılamayan karakterler de işlenir. İsterseniz matematik 
+      işlemleri bile gömebilirsiniz. Örneğin geriye ‘Fred’ stringi dönen bir 
+      %b showname 
+      metodunuz olsun. Aşağıdaki satır 
+      %b showname 
+      metodunu çağırır ve geri dönen değeri ekrana basar. Yani ‘Hello Fred’ 
+      yazacaktır:
+    
+    :coderay
+      #!Ruby
+      
+      puts "Hello \#{showname}"
+      
+    %br
+    %p Acaba aşağıdaki satırın sonucunda ekrana ne çıkacağını tahmin edebilir misiniz:
+    %h4.sag 3string_eval.rb
+    :coderay
+      #!Ruby
+    
+      puts( "\n\t\#{(1 + 2) * 3}\nGoodbye" )
+      
+    %br
+    %p 
+      Şimdi 
+      %i 3string_eval.rb 
+      programını çalıştırın ve haklı mısınız görün.
+      
+    %h3 devam edecek...

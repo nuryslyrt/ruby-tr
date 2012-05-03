@@ -133,8 +133,8 @@ textarea {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 20px;
   color: #333333;
   background-color: #ffffff;
 }
@@ -323,8 +323,8 @@ a:hover {
 p {
   margin: 0 0 9px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 20px;
 }
 p small {
   font-size: 11px;
@@ -374,6 +374,7 @@ h2 small {
 h3 {
   line-height: 27px;
   font-size: 18px;
+  margin-bottom: 10px;
 }
 h3 small {
   font-size: 14px;

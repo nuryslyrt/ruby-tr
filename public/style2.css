@@ -34,3 +34,11 @@ body {
 	font-weight: 200;
 	line-height: 27px;
 }
+
+.orta {
+	text-align: center;
+}
+
+.sag {
+	text-align: right;
+}
