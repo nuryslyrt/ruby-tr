@@ -212,4 +212,409 @@
       %i 3string_eval.rb 
       programını çalıştırın ve haklı mısınız görün.
       
-    %h3 devam edecek...
+    %h3 SAYILAR
+    %p 
+      Sayılar stringlere göre daha kolay öğrenilebilir. Örneğin varsayalım bazı 
+      şeylerin satış fiyatını, toplam fiyatını veya vergisini hesaplamak 
+      istiyorsunuz. Toplam fiyatı vergi oranıyla çarpıp vergilenmiş toplam fiyat elde 
+      edeceksiniz. Farzedelim toplam 
+      %b 100 TL 
+      lik mal alımında 
+      %b %17.5 KDV 
+      uygulanacak. Ruby programı şuna benzer:
+    %br
+    
+    %h4.sag 4calctax.rb
+    :coderay
+      #!Ruby
+      
+      alttoplam = 100.00
+      vergi_oran= 0.175
+      vergi = alttoplam * vergi_oran
+      puts "\#{alttoplam}TL nin vergisi \#{vergi}TL, böylece hepsi \#{alttoplam+vergi}TL olur."
+      
+    %br
+    %p
+      Açıkça belirli ki, eğer bu program aynı değeri işlemek yerine farklı toplam 
+      değerlerini işleyebiliyor olsa daha kullanışlı olacak. Burada kullanıcıya toplam 
+      miktarı soran bir hesaplayıcı program var:
+    %br
+    
+    :coderay
+      #!Ruby
+      
+      vergi_oran = 0.175
+      print "Fiyatı girin (vergi hariç): "
+      s = gets
+      alttoplam = s.to_f
+      vergi = alttoplam * vergi_oran
+      puts "\#{alttoplam}TL nin vergisi \#{vergi}TL, böylece hepsi \#{alttoplam+vergi}TL olur."
+      
+    %br
+    
+    %p
+      Burada 
+      %b s.to_f 
+      string sınıfının bir metodu. Stringi kayan noktalı sayıya çevirir. Örneğin string 
+      ‘145.45’ sayı olan 145.45 e dönüştürülür. Eğer string bir sayı değilse 0.0 sayısı 
+      döner. Yani 
+      %b “Hello World”.to_f 
+      satırı 0.0 sayısı dönecektir.
+      
+    %div.alert.alert-success
+      %h3 Yorumlar...
+      %br
+      %p 
+        Bu kitaptaki birçok örnek Ruby derleyicinin dikkate almadığı yorum satırları 
+        içerir. Bir diyez işareti sonrası (#) yorumlar yazılabilir. Bu karakter sonrasındaki 
+        yazılar yorum olarak değerlendirilir:
+        %br
+        :coderay
+          #!Ruby
+          # bu bir yorum
+          
+          puts( "hello" )   # ayrıca bu da bir yorum
+        %br
+        Eğer çok satırlı bir yorum yapacaksanız yorumu 
+        %b =begin
+        ve 
+        %b =end 
+        kelimeleri arasına yazabilirsiniz (hem =begin ve hem =end en sol kenarda 
+        olmalıdır:
+        :coderay
+          #!Ruby
+          =begin
+            Bu çok
+            satırlı bir
+            yorum
+          =end
+    %br
+    %hr
+    %br
+    %h3 Koşul Değerlendirmesi - if … then
+    %p
+      Basit vergi hesaplayıcıda bir hata var , fiyatı eksi değer olarak ta versek 
+      hesap yapacaktır. Bu durumda vergi de eksi çıkacaktır ve bu devletimizin 
+      hoşuna gitmez. Bu durumda verilen sayıyı sıfırdan küçük mü diye kontrol 
+      etmek lazım. Programımıza yeni bir versiyon:
+    %h4.sag 5taxcalculator.rb
+    :coderay
+      #!Ruby
+      vergi_oran = 0.175
+      
+      print "Fiyatı girin (KDV hariç): "
+      s = gets
+      alttoplam = s.to_f
+      
+      if (alttoplam < 0.0) then
+        alttoplam = 0.0
+      end
+      
+      vergi = alttoplam * vergi_oran
+      puts "\#{alttoplam}TL nin vergisi \#{vergi}TL, böylece hepsi \#{alttoplam+vergi}TL olur."
+    %br
+    %p
+      Ruby 
+      %b if 
+      testi diğer dillerdeki 
+      %b if 
+      testine benzer. Not olarak parantez kullanımı yine opsiyoneldir isterseniz 
+      kullanmayın. Ancak aşağıdaki gibi tek satırda işlemi bitirmek istiyorsanız 
+      parantez kullanmak gerekir.
+    
+    %br
+    :coderay
+      #!Ruby
+      
+      if (alttoplam < 0.0) then alttoplam = 0.0 end
+      
+    %br
+    %p
+      Hepsini tek satıra koyarsanız bu koda herhangi bir açıklık getirmez, bu 
+      yüzden ben kullanmam. Bir konu da 
+      %b end 
+      kelimesi kullanılması mecburdur, kullanmazsanız kodunuz çalışmayacaktır.
+      
+    %h3 LOKAL ve GLOBAL DEĞİŞKENLER
+    %p
+      Önceki örnekte 
+      %b alttoplam vergi 
+      ve 
+      %b vergi_oran 
+      değişkenlerine değerler atadık. Bunlar gibi küçük harflr başlayan değişkenler 
+      lokal değişkenlerdir. Manası, bunları sadece programın bir kısmı içinde 
+      kullanabilirsiniz - başka deyişle sınırları kısıtlanmış bir alanda geçerlidirler. 
+      İşte size bir örnek:
+    %br
+    
+    %h4.sag variables.rb
+    :coderay
+      #!Ruby
+      localvar = "hello"
+      $globalvar = "goodbye"
+      
+      def bir_metod
+        localvar = 10
+        puts( localvar )
+        puts( $globalvar )
+      end
+      
+      
+      def diger_metod
+        localvar = 500
+        $globalvar = "bonjour"
+        puts( localvar )
+        puts( $globalvar )
+      end
+    %br
+    %p
+      Burada 
+      %b localvar 
+      adında üç tane lokal değiken var. Bir tanesine programın ana gövdesinde 
+      %b “hello” 
+      değeri atanmış. Diğer ikisine ise iki farklı iki metod içinde tamsayı değerler 
+      atanıyor. Her lokal değişken farklı 
+      %b kapsam 
+      içinde değerini alır ve aynı isimde ama diğer kapsamdaki değişkenin değeri 
+      bundan etkilenmez. Bunu sırayla metodları çağırarak görebilirsiniz:
+    %br
+    :coderay
+      #!Ruby
+      bir_metod         #=> localvar = 10
+      diger_metod       #=> localvar = 500
+      bir_metod         #=> localvar = 10
+      puts( localvar )  #=> localvar = “hello”
+    %br
+    %p
+      Diğer taraftan bir 
+      %b global 
+      değişken - 
+      %b $ 
+      karakteri ile başlayan - global kapsama sahiptir. Global değişkene metod 
+      içinde de değer verilse programın her yerinde geçerlidir:
+    %br
+    :coderay
+      #!Ruby
+      bir_metod         #=> $globalvar = “bonjour”
+      diger_metod       #=> $globalvar = “bonjour”
+      bir_metod         #=> $globalvar = “bonjour”
+      puts( localvar )  #=> $globalvar = “goodbye”
+    %br
+    
+    %h3 SINIFLAR VE NESNELER (CLASSES AND OBJECTS)
+    %p
+      Ruby’nin geri kalan deyimlerine dalmadan önce - tip tanımları, çevrimler, 
+      modüller vb. (merak etmeyin yakında göreceğiz) - hızlı bir bakışla sınıfları 
+      ve nesneleri nasıl tanımlayacağımıza bakalım.
+    %br
+    %div.alert.alert-info
+      %h4 Sınıflar, Nesneler ve Metodlar
+      %p
+        Bir ‘sınıf’ bir nesne için bir karbon kopyadır. Bir nesnenin içerdiği verileri ve 
+        nasıl davranacağını belirtir. Bir tek sınıftan farklı birçok nesne üretilebilir. 
+        Yani bir 
+        %b kedi 
+        sınıfınız var ama üç tane kedi nesneniz var, tüylü, sarman ve tekir. Bir 
+        %b metod 
+        sınıf içerisinde tanımlanan bir fonksiyon ya da altrutindir.
+    %br
+    %p
+      Ruby’nin nesne tabanlı olduğunu söylemek pek matah bişey değil gibi 
+      gelebilir. Bu günlerde tüm diller öyle değil mi? Evet , bir yere kadar. Birçok 
+      modern 
+      %b object oriented 
+      dil (Java, C++, C#, Object Pascal vb.) az ya da çok nesne tabanlı davranış 
+      örnekleri gösterirler. Diğer yandan Ruby saplantı derecesinde nesne 
+      tabanlıdır. Gerçeği söylemek gerekirse Smalltalk ya da Eiffel (Nesneler 
+      hakkında Ruby kadar saplantılı diller) kullanmadıysanız size gördüğünüz en 
+      %b object oriented 
+      dil Ruby gibi gelecektir. Her türlü veri - sayılar ve stringler gibi en 
+      basitlerden modüller gibi en karmaşıklarına kadar - nesne olarak 
+      değerlendirilir. Ve bu nesnelerle yaptığınız hemen her şeyi metodlar yoluyla 
+      yaparsınız. Toplama 
+      %b + 
+      ve çıkarma 
+      %b - 
+      gibi operatörler bile metoddur. Aşağıdakine bakın:
+    %br
+    :coderay
+      #!Ruby
+      x=1+2
+    %br
+    
+    %p
+      Burada 
+      %b Fixnum 
+      (integer) 1 nesnesinin 
+      %b + 
+      metodu kullanılmış, 2 değeri bu metoda gönderilmiş ve sonuç olan 3 değeri 
+      %b x 
+      isimli nesneye konmuş. Burada 
+      %b = 
+      operatörü “bir nesne ile yapılan herşey metodlar üzerinden yapılır” 
+      diyemeyeceğimiz noktayı oluşturuyor. Atama operatörü özel bir ‘dımbırtı’ 
+      (bu kelime dilin terminolojisinde yok, ben ekledim) ve herhangi bir şeyin 
+      metodu değil.
+    %p
+      Haydi gelin kendi nesnelerimizi nasıl tanımlayacağımızı öğrenin. Diğer birçok 
+      OOP (Object Oriented Programming) dillerde olduğu gibi Ruby’de de nesne 
+      tanımlama 
+      %b class 
+      üzerinden yapılır. 
+      %b class 
+      nesnelerin karbon kopya olarak üretildiği sınıf yapısına denir. Örneğin 
+      buradaki class bir köpeği tanımlar:
+    %br
+    :coderay
+      #!Ruby
+      class Dog
+        def set_name( aName )
+          @myname = aName
+        end
+      end
+    %br
+    
+    %p
+      Dikkat ettiyseniz sınıf tanımlaması 
+      %b class 
+      (tamamı küçük harf) kelimesiyle ve sınıfın adıyla başlıyor. Sınıfın adı büyük 
+      harfle başlamalıdır. Sınıf tanımımız 
+      %b set_name 
+      adında bir metod tanımı içeriyor. Bu tanım 
+      %b aName 
+      adında bir değişken parametre alıyor. Metodun gövdesinde bu 
+      %b aName 
+      içindeki değer 
+      %b @myname 
+      isimli bir değişkene kopyalanıyor.
+    %h3 OLUŞUM DEĞİŞKENLERİ (INSTANCE VARIABLES)
+    %p
+      %b @ 
+      karakteri ile başlayan değişkenler 
+      %b oluşum değişenleri 
+      dir - yani onlar sınıflardan türetilen nesne oluşumlarının her birinde ayrı 
+      değer alabilirler. Oluşum değişkenlerini önceden deklare etmek gerekmez. 
+      %b Dog 
+      sınıfının oluşumlarını üretmek için 
+      %b new 
+      metodu kullanılır. Burada iki değişik köpek nesnesi üretiyorum, işte bu 
+      nesneler Dog sınıfının oluşumları oluyor (not, sınıf isimleri büyük harfle 
+      başlar, nesne isimleri aynı zamanda değişken ismi oldukları için küçük harfle 
+      başlar ): 
+    %br
+    :coderay
+      #!Ruby
+      mydog = Dog.new
+      yourdog = Dog.new
+    %br
+    
+    %p
+      Şu anda bu köpekçiklerin isimleri yok. Öyleyse sırada 
+      %b set_name 
+      metodunu çalıştırarak onlara isim vermeye geldi:
+    %br
+    :coderay
+      #!Ruby
+      mydog.set_name "Fido"
+      yourdog.set_name "Bonzo"
+    %br
+    %p
+      Her köpeğe isim verdik , daha sonra isimlerini öğrenmek için bir yol bulmam 
+      gerekiyor. Bunu nasıl yaparım? Nesne içinde kullanılan bir değişkene 
+      dışardan erişmek mümkün değildir, çünkü bir nesnenin tüm detayı ancak 
+      içinde erişilebilirdir. Bu ‘saf’ nesne temelli olmanın gereğidir: Nesne içindeki 
+      veriler 
+      %b private
+      ’dir (özel). Nesne içinde dışarıdan nelere erişilebileceği 
+      %b set_name 
+      metodunda olduğu gibi açıkça belirlenmek zorundadır. Sadece nesnenin 
+      kendisi içersindeki herşeyi kurcalayabilir, dışardan birşeyle mümkün değildir. 
+      Buna ‘veri saklama’ (data hiding) denir ve bu iş 
+      %b encapsulation 
+      prensibinin bir parçasıdır.
+    %br
+    %div.alert.alert-info
+      %h4 Encapsulation
+      %br
+      %p 
+        Ruby’de encapsulation başlangıçata olduğu kadar bütünüyle zorlanmış 
+        sınırlarla çevrili değildir. Nesneler içinde kurcalama yapmak için bazı kirli 
+        yöntemler mevcut. Fakat basit olabilmek adına dilin bu özelliklerini pass 
+        geçeceğiz.
+    %br
+    %p
+      Köpeklerimizin isimlerini sorgulayabilmek için sınıf tanımına bir 
+      %b get_name 
+      metodu ekleyelim:
+    %br
+    :coderay
+      #!Ruby
+      def get_name
+        return @myname
+      end
+    %br
+    
+    %p
+      Buradaki 
+      %b return 
+      kelimesi opsiyoneldir. Kullanılmadığı zaman Ruby metodu en son yapılan 
+      işlemin sonucunu geri dönecektir.
+    %p
+      Anlaşılabilir kalmak için (ve bundan daha karmaşık olan metodlarda 
+      beklenmeyen sonuçlarla karşılaşmamak için) tüm geri dönen değerleri böyle 
+      açıkça belirtmeyi alışkanlık edineceğim. 
+    %p
+      Son olarak köpekçiklere konuşması için bir davranış biçimi tanımlayalım. 
+      Sınıf tanımımızın son hali şöyle oldu:
+    %br
+    :coderay
+      #!Ruby
+      class Dog
+        def set_name( aName )
+          @myname = aName
+        end
+        
+        def get_name
+          return @myname
+        end
+        
+        def talk
+          return 'woof!'
+        end
+      end
+    %br
+    %p Şimdi bir köpek üretip, ona isim verebilir, ismini gösterebilir ve ona konuşmasını emredebiliriz:
+    %br
+    :coderay
+      #!Ruby
+      mydog = Dog.new
+      mydog.set_name "Fido"
+      puts(mydog.get_name)
+      puts(mydog.talk)
+    %br
+    
+    %h3 ÜRETİCİLER – NEW ve INITIALIZE
+    %br
+    :coderay
+      #!Ruby
+      class Treasure
+        def initialize( aName, aDescription )
+          @name         = aName
+          @description  = aDescription
+        end
+        
+        def to_s # default to_s metodu üzerine yazılıyor
+          "The \#{@name} Treasure is \#{@description}\n"
+        end
+      end
+      
+      t1 = Treasure.new("Sword", "an Elvish weapon forged of gold")
+      t2 = Treasure.new("Ring", "a magic ring of great power")
+      
+      puts t1.to_s
+      puts t2.to_s
+      
+      # inspect metodu ile nesnelerin içine bakarsınız
+      puts "Inspecting 1st treasure: \#{t1.inspect}"
+    %br
+    %h3 Devam Edecek...
