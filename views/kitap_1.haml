@@ -617,4 +617,155 @@
       # inspect metodu ile nesnelerin içine bakarsınız
       puts "Inspecting 1st treasure: \#{t1.inspect}"
     %br
-    %h3 Devam Edecek...
+    
+    %p
+      %b Treasure 
+      sınıfı 
+      %b get_name 
+      ve 
+      %b set_name 
+      metodlarına sahip değil. Bunun yerine 
+      %b initialize 
+      isimli ve 
+      %b @name 
+      ve 
+      %b @description 
+      değişkenlerine değer atayan bir metoda sahip. 
+    %p
+      Bir sınıf 
+      %b initialize 
+      metodu içeriyorsa bu metod sınıf oluşumları üretilirken 
+      %b new 
+      metodu kullanılınca otomatik olarak çağrılır. Nesnenin oluşum değişkenlerine 
+      başlangıç değerler atamak için bu ideal bir yoldur.
+    %p
+      Her oluşum değişkeni için 
+      %b set_name 
+      benzeri metod tanımlamak yerine böyle yapmanın iki önemli faydası var. 
+      Öncelikle karmaşık sınıflar bir sürü oluşum değişkenine sahiptirler ve herbirine 
+      %b set.. 
+      metodu tanımlamak yerine tek metodda iş bitmiş olur. İkincisi, eğer nesneyi 
+      üretirken gereken oluşum değişkenlerini tanımlarsanız, hiç bir zaman boş bir 
+      değişken ile karşılaşmazsınız (nil değer).
+    %p
+      Son olarak, Treasure objesini yazıyla ifade edebilmek için bir 
+      %b to_s 
+      metodu tanımladım. Metod adı olan 
+      %b to_s 
+      ismi keyfi seçilmiş bir isim değildir. Standart Ruby nesne hiyerarşisinde aynı 
+      metod ismi kullanılır. Gerçekte 
+      %b to_s 
+      metodu tüm sınıfların atası olan 
+      %b Object 
+      sınıfı içinde tanımlanmıştır. 
+      %b to_s 
+      metodunu tekrar tanımlamakla default metoda göre Treasure nesnesini 
+      daha iyi ifade edecek bir metod yazdım. Bu durumda 
+      %b to_s 
+      metodu üzerine yazmış oldum.
+    %p
+      %b new 
+      metodu yeni bir nesne oluşturur, bu durumda nesnenin 
+      %b üreticisi olarak düşünülebilir. Bununla beraber kendi new metod 
+      tanımlamanızı yapmamalısınız (bunu yapmak mümkün ama tavsiye edilmez). 
+      Yerine 
+      %b ayar 
+      işlemlerini yapmak için - mesela nesnenin dahili değişkenlerine değer 
+      vermek için - 
+      %b initialize isimli metodu kullanmalısınız. Ruby bir nesneyi ürettikten 
+      hemen sonra 
+      %b initialize 
+      metodunu çalıştırır.
+    %br
+    %div.alert.alert-info
+      %h4 Garbage Collection - Çöpleri Toplamak
+      %p
+        Birçok dillerde C++ ve Delphi gibi , bir nesneyi artık gerek kalmadığında 
+        yok etmek programcının görevidir. Aynı üretici metodlar gibi 
+        %b yokedici 
+        metodlar kullanılarak nesne yok edilir. Ruby’de hazır bir 
+        %b garbage collector 
+        (çöp toplayıcı) kullanılmayan nesneleri otomatik olarak hafızadan kaldırdığı 
+        için bunu yapmanıza gerek yoktur.
+    %br
+    
+    %h3 INSPECTING OBJECTS - NESNELERİ DENETLEMEK
+    %p
+      Tesadüf o ki, dikkat ettiyseniz 
+      %b t1 
+      Treasure nesnesinin içerisine 
+      %b inspect 
+      metodu kullanarak bakındım:
+    %br
+    
+    :coderay
+      #!Ruby
+      t1.inspect
+    %br
+    
+    %p
+      %b inspect 
+      metodu tüm Ruby nesneleri için tanımlıdır. Nesnenin okunabilir bir sunumunu 
+      veren string geri döner. Şuna benzer bişey döner:
+    %br
+    
+    :coderay
+      #!Ruby
+      #<Treasure:0x28962f8 @description="an Elvish weapon forged of gold", @name="Sword">
+    %br
+    %p
+      Bu sınıfın adıyla başlar, Treasure; arkasından bir sayı, yukardakinden farklı 
+      olabilir - bu Ruby’nin o nesneyi belirtmek için kullandığı id kodudur - ; son 
+      olarak da nesnenin değişkenlerinin isim ve değerleri.
+    %p
+      Ruby ayrıca nesnelerin inspect metodunu çağıran kestirme bir 
+      %b p 
+      metodu içerir:
+    :coderay
+      #!Ruby
+      p( bir_nesne )
+    %br
+    
+    %p
+      %b to_s 
+      metodunun değişik nesneler üzerindeki etkisini görmek için 
+      %b 8to_s.rb 
+      programını yazıp çalıştırın
+    %br
+    
+    %h4 8to_s.rb
+    :coderay
+      #!Ruby
+      # Değişik nesnelerin string gösterimleri
+      # to_s metodu kullanılarak
+      
+      class Treasure
+        def initialize( aName, aDescription )
+          @name = aName
+          @description  = aDescription
+        end
+        
+        # Bu sefer Treasure nesnesinin to_s metodu üzerine yazmadık
+        # öyleyse default to_s metod cevap verecek
+      end
+      
+      t = Treasure.new( "Sword", "A lovely Elvish weapon" )
+      
+      puts("   Class.to_s")
+      puts(Class.to_s)
+      puts("   Object.to_s")
+      puts(Object.to_s)
+      puts("   String.to_s")
+      puts(String.to_s)
+      puts("   100.to_s")
+      puts(100.to_s)
+      puts("   Treasure.to_s")
+      puts(Treasure.to_s)
+      puts("   t.to_s")
+      puts(t.to_s)
+      puts("   t.inspect")
+      puts(t.inspect)
+    %br
+    
+    %h3
+      %a.btn.btn-success.btn-large.pull-right(href="/kitap/2") Bölüm-2 >
