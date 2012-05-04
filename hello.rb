@@ -2,7 +2,7 @@ require "sinatra"
 
 
 get "/" do
-  haml :dnm
+  haml :index
 end
 
 get "/kitap/:n" do |number|
