@@ -42,3 +42,8 @@ body {
 .sag {
 	text-align: right;
 }
+
+IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
