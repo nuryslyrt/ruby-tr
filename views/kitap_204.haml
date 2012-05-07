@@ -1,0 +1,137 @@
+-# coding: UTF-8
+
+
+%div.row
+  %div.span12
+    %h1 Green Shoes'un Kuralları
+    %h3
+      Green Shoes'un nasıl çalıştığını tahmin etmeyi bırakalım. Bazı hassa noktalar 
+      sizi zorlayabilir. Aşağıda Green Shoes'un esas kurallarını sıraladım. Bunları 
+      her şeyi sağlıklı çalıştırmak için 
+      %b MUTLAKA 
+      öğrenmelisiniz
+    %hr
+    %br
+    %p 
+      Bunlar tüm Green Shoes içindeki genel kurallar. Green Shoes basitlik ve açıklık 
+      üzerine kurulduğu için, çalışılacak ve hatırlanacak bir kaç nokta vardır.
+    %h1 Shoes İncelikli Bloklar
+    %p
+      Tamam, burası biraz çetrefilli. Green Shoes bloklarla biraz enteresan davranır. 
+      Bu enteresanlık sayesinde kodun okunabilirliği artar. Ama aynı zamanda 
+      biraz derinlere dalınca kullanımı güçleştirir.
+    %h4 Şimdi bir normal Ruby bloğuna bakalım:
+    :coderay
+      #!Ruby
+      Shoes.app do
+        ary = ['potion', 'swords', 'shields']
+        ary.each do |item|
+          puts item
+        end
+      end
+    %br
+    
+    %p
+      Green Shoes'da bu tip bloklar aynı çalışır. Yukardaki blok bir array 
+      elemanları üzerinden bir çevrime girer ve herbirini 
+      %code item 
+      değişkenine alarak işler. Blok işlenmesi bittiğinde 
+      %code item 
+      değişkeni de yok olur.
+    %p
+      Akılda tutulması gereken bir başka nokta da 
+      %code self 
+      normal Ruby blokları arasında değerini korur. Yani 
+      %code each 
+      bloğundan önce 
+      %code self 
+      ne değerdeyse blok içinde de aynı değerdedir.
+    %h4 Bu iki nokta birçok Green Shoes bloğu için de geçerlidir.
+    :coderay
+      #!Ruby
+      Shoes.app do
+        stack do
+          para "First"
+          para "Second"
+          para "Third"
+        end
+      end
+    %br
+    
+    %p
+      Burada iki bloğumuz var. İlk blok 
+      %code Shoes.app 
+      nesnesine gönderilir ve bu 
+      %code self 
+      i değiştirir.
+    %p
+      Diğer blok ise 
+      %code stack 
+      bloğu. Bu blok self'i değiştirmez.
+    %p
+      %b Ne sebeple 
+      %code app
+      %b bloğu self'i değiştirir? 
+      Son örneğimizi irdeleyerek başlayalım.
+    %br
+    :coderay
+      #!Ruby
+      Shoes.app do
+        self.stack do
+          self.para "First"
+          self.para "Second"
+          self.para "Third"
+        end
+      end
+    %br
+    
+    %p
+      Buradaki tüm 
+      %code self 
+      ler App nesnesini temsil ediyor. Green Shoes 
+      %code app 
+      bloğu içinde self'i değiştirmek için 
+      %code instance_eval 
+      metodunu kullanır. Bu yüzden stack ve para metodlarına yapılan çağrılar 
+      app'ye gönderilir.
+    %h4 Bu sayede oluşum değişkenleri tüm Shoes uygulaması içinde kullanılabilir:
+    :coderay
+      #!Ruby
+      Shoes.app do
+        @s = stack do
+          @p1 = para "First"
+          @p2 = para "Second"
+          @p3 = para "Third"
+        end
+      end
+    %br
+    
+    %p Bu tüm oluşum değişkenleri App nesnesi içinde geçerlidir.
+    %h4
+      Yeni bir Shoes.app penceresi üretince 
+      %code self 
+      değişir.
+    :coderay
+      #!Ruby
+      Shoes.app title: "MAIN" do
+        para self
+        button "Spawn" do
+          Shoes.app title: "CHILD" do
+            para self
+          end
+        end
+      end
+    %br
+    
+    %h3 Devam Edecek...
+
+
+
+
+    %hr
+    %a.btn.btn-large.btn-success.pull-left(href="/kitap/202")
+      %i.icon-backward.icon-white
+      Shoes'a Giriş
+    %a.btn.btn-large.btn-success.pull-right(href="/kitap/204")
+      Green Shoes'un Kuralları
+      %i.icon-forward.icon-white

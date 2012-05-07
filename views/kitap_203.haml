@@ -1,0 +1,124 @@
+-# coding: UTF-8
+
+
+%div.row
+  %div.span12
+    %h1 Green Shoes Kurulumu
+    %h3
+      Evet, Green Shoes kurulumuna giderken, eminim hepiniz "Ruby kurmam 
+      gerekli mi?" , "Zip dosyaları mı açacağım" , "Hangi komutları girmem 
+      gerekiyor?" diye merak ediyorsunuz.
+    %hr
+    %br
+    %p 
+      Yeah, Ruby ve Gemleri kurmak zorundasınız. Fakat endişelenmenize gerek yok! 
+      Tüm adımları anlatacağız.
+    %h1 Kurulum Adım 1: 
+    %p
+      İlk önce, Ruby kurun. 
+      %b Windowsta RubyInstaller 1.9.2 veya 1.9.3 
+      kurulum dosyasını 
+      %a(href="http://rubyinstaller.org" target="_blank") Windows için RubyInstaller 
+      sitesinden indirin ve kurun.
+    %p Sonra da aşağıdaki tek satır komutu girin
+    %code gem install green_shoes
+    %p Hepsi bu! kolay değil mi?
+    %p
+      %b Not: 
+      green_shoes gem'i 
+      %a(href="http://rubygems.org" target="_blank") RubyGems.org 
+      adresindedir. Eğer rdoc yüzünden bir hata alırsanız 
+      %code --no-ri --no-rdoc 
+      opsiyonuyla bir daha deneyin.
+    %br
+    
+    %h1 Adım 2: Yeni bir Text dosyası oluşturun
+    %p
+      Shoes programları 
+      %b .rb 
+      uzantısıyla biten isime sahip bir text dosyasıdır.
+    %p Burada boş text dosya üretmenin yolları:
+    %ul
+      %li
+        %b Mac OS X'
+        de bilgisayarınızın 
+        %b Applications 
+        klasörüne girin ve 
+        %b TextEdit 
+        uygulamasına çift tıklayın. Boş bir editör ekranı gelecektir. Şimdi 
+        %b Format 
+        menüsüne gidin ve 
+        %b Make Plain Text 
+        opsiyonunu seçin. Tamam! hepsi bu kadar.
+        %br
+        %img.displayed(src="/man-editor-osx.png")
+        %br
+      %li
+        %b Windows'
+        ta Başlat menüsünden 
+        %b Tüm Programlar'
+        dan 
+        %b Donatılar 
+        ve 
+        %b Notepad seçin
+        %br
+        %img.displayed(src="/man-editor-notepad.png")
+        %br
+      %li
+        %b Linux'
+        ta birçok dağıtım 
+        %b gedit 
+        editörüyle birlikte gelir. Bunu kullanabilirsiniz. Eğer KDE temelli bir 
+        dağıtım kullanıyorsanız, 
+        %b kate 
+        işinizi görecektir
+    %br
+    %p şimdi açılan boş sayfada şunları yazın:
+    %br
+    :coderay
+      #!Ruby
+      require 'green_shoes'
+      
+      Shoes.app do
+        para "Welcome to Shoes"
+      end
+    %br
+    %p
+      Bu dosyayı masaüstüne 
+      %code welcome.rb 
+      adıyla kaydedin.
+    %h1 Adım 3: Çalıştırın! Haydi Shoes!
+    %p Programınızı çalıştırmak için, bir consol açın ve aşağıdaki kodu çalıştırın.
+    :coderay
+      #!Bash
+      ruby welcome.rb
+    %br
+    %img.displayed(src="/gs_welcome.png" alt="/gs_welcome.png")
+    %br
+    %p
+      Çok fazla bir program değil ama en bişey oldu! En azından çalıştırmayı 
+      başardınız.
+    %h1 Shoes ile Neler Yapabilirsiniz?
+    %p
+      Evet, pencereli uygulamalar yapabiliyorsunuz. Fakat Shoes webden 
+      esinlenmiştir. Bu yüzden uygulamaları widget yerine resim ve yazı yerleşimleri 
+      ile yapılır. Örneğin Shoes'da tab kontrol yada toolbar yoktur. Hatırlayın 
+      Shoes 
+      %i ufak bir toolkit.
+    %p
+      Halen Shoes butonlar ve edit boxlar gibi birkaç widget içermekte ve 
+      birçok olmayan eleman (tab kontrol ve toolbar gibi) resimlerle simüle 
+      edilebilir.
+    %p
+      Shoes çok iyi bir grafik motoru olan Cairo kullanır, bununla şekiller çizilip 
+      renklendirilir. Ayrıca harika bir yazı yerleşim uygulayıcı olan Pango'ya da 
+      teşekkürler. Bu şekliyle Shoes , NodeBox ve Processing'den esinlenmiştir. 
+      Bunlar animasyonlu grafikler çizmede kullanılan iki kalite dildir.
+    
+    %hr
+    %a.btn.btn-large.btn-success.pull-left(href="/kitap/202")
+      %i.icon-backward.icon-white
+      Shoes'a Giriş
+    %a.btn.btn-large.btn-success.pull-right(href="/kitap/204")
+      Green Shoes'un Kuralları
+      %i.icon-forward.icon-white
