@@ -122,7 +122,182 @@
         end
       end
     %br
+    %br
     
+    %h1 Blok Yönlendirmesi
+    %p
+      %code stack 
+      bloğu başka bir hikaye. Bu blok 
+      %code self 
+      i değiştirmez ve normal bir blokdur.
+    %p
+      %b Fakat bir ince nokta var: 
+      Bir 
+      %code stack 
+      üretir ve ona bir blok bağlarsanız, App nesnesi bu stack'i hafızasına 
+      yerleştirir. Blok bitince bu stack de biter. Ve blok içindeki tüm çizimler 
+      App'nin en üst rafından yeni stack içine yönlendirilir.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        stack do
+          para "First"
+          para "Second"
+          para "Third"
+        end
+      end
+    %br
+    
+    %p Biraz çetrefilli dimi , bu konu bilseniz bile size sorun çıkarabilir.
+    %p
+      Sizi avlayacağı yerlerden biri , eğer 
+      %code app
+      bloğu dışında bir yerde stack düzenlemeye kalkarsanız olacaktır.
+    %p
+      Mesela , bir stack nesnesini alıp düzenlemek için başka bir sınıfa 
+      gönderiyorsunuz.
+    %br
+    
+    :coderay
+      #!Ruby
+      class Messenger
+        def initialize slot
+          @slot = slot
+        end
+        
+        def add msg
+          para msg rescue puts $!
+        end
+      end
+      
+      Shoes.app do
+        slot = stack
+        m = Messenger.new slot
+        m.add 'hello'
+      end
+    %br
+    
+    %p
+      Diyelim uygulama başladığında stack nesnenizi Messenger sınıfınıza 
+      gönderdiniz. Ve sonra yeni mesaj gelince 
+      %b add 
+      metodu bu stack'a paragraf ekleyerek mesajı yazıyor. Sorun var mı, yok?
+    %p
+      Maalesef, bu çalışmaz. 
+      %b para 
+      metodunun anlaşılmadığını belirtir bir mesaj verecektir. Çünkü 
+      %b App 
+      nesnesi içinde değil. Metod App'ye ait habuki.
+    %p
+      Ne güzel ki, her Shoes nesnesi dışardan bu tip müdahaleler amaçlı bir 
+      %b app 
+      metoduna sahiptir.
+    %br
+    
+    :coderay
+      #!Ruby
+      class Messenger
+        def initialize slot
+          @slot = slot
+        end
+        
+        def add msg
+          @slot.app do
+            para msg rescue puts $!
+          end
+        end
+      end
+      
+      Shoes.app do
+        slot = stack
+        m = Messenger.new slot
+        m.add 'hello'
+      end
+    %br
+    
+    %p
+      Tahmin edeceğiniz gibi, 
+      %b app 
+      metodu 
+      %b self' 
+      i App nesnesine çevirir.
+    %p Bu durumda kurallar:
+    %ol
+      %li
+        %b "app" metodu veya yeni pencere üreten metodlar 
+        %code self'
+        %b i App nesnesine çevirir.
+        %br
+        %p
+          (Bu 
+          %a(href="/kitap/213#window")window 
+          ve 
+          %a(href="/kitap/213#dialog")dialog'
+          da olduğu gibi Shoes.app ve Slot.app'nin 
+          her ikisinde de geçerlidir)
+      %li
+        %b 
+          stack, flow veya herhangi manipulasyon metoduna (mesela append) 
+          ilişik bloklar self'i değiştirmez. Yerine bloktakileri app'ye geçirirler.
+    %br
+    %br
+    
+    %h1 Sabit Yüksekliklere Dikkat Edin
+    %p Slotlarda sabit genişlik ekranı sütunlara bölmek için güzel bir fikir.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        flow do
+          stack :width => 200 do
+            background lavender
+            caption "Sütun bir"
+            para "200 pixel genişlikte"
+          end
+          stack :width => -200 do
+            background bisque
+            caption "Sütun iki"
+            para "%100 - 200 pixel genişlikte"
+          end
+        end
+      end
+    %br
+    
+    %p
+      Sotlarda sabir yükseklik pek kullanılmamalı. Genellikle yazılarınız ve 
+      resimlerinizin oldukları kadar aşağı gitmesini istersiniz. Yükseklik genelde 
+      doğal şekline bırakılır.
+    %p
+      Buradaki önemli nokta sabit yükseklikler slotları farklı davranmaya zorlar. 
+      Slotun doğru yerden kesildiğine emin olmak için slot bir 
+      %b iç pencereye 
+      döndürülür. Slotu sabit bir dörtgende tutmak için işletim sistemi 
+      tarafından yeni bir katman oluşturulur.
+    %p
+      Normal slotlar ve iç pencereler arasındaki bir fark, ikincisinin scrollbar 
+      alabilmesidir.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        stack width: 200, height: 200, scroll: true do
+          background "#DFA"
+          100.times do |i|
+            para "Paragraph No. \#{i}"
+          end
+          flush
+        end
+      end
+    %br
+    
+    
+
+
+
     %h3 Devam Edecek...
 
 
