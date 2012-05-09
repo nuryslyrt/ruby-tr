@@ -1,0 +1,55 @@
+%script(src="/assets/js/jquery.js")
+%script(src="/assets/js/bootstrap-collapse.js")
+.accordion.btn-inverse(id="accordion2")
+  .accordion-group
+    .accordion-heading
+      %h4
+        %a.accordion-toggle(data-toggle="collapse" data-parent="#accordion2" href="#merhaba") Merhaba
+    .accordion-body.collapse(id="merhaba")
+      .accordion-inner 
+        %h3 
+          %a(href="/kitap/201")Merhaba
+        %ul.nav.nav-tabs
+          %li
+            %a(href="/kitap/202")Giriş
+          %li
+            %a(href="/kitap/203")Kurulum
+          %li
+            %a(href="/kitap/204")Kurallar
+  .accordion-group
+    .accordion-heading
+      %h4
+        %a.accordion-toggle(data-toggle="collapse" data-parent="#accordion2" href="#shoes") Shoes
+    .accordion-body.collapse(id="shoes")
+      .accordion-inner 
+        %h3 
+          %a(href="/kitap/205")Shoes
+        %ul.nav.nav-tabs
+          %li
+            %a(href="/kitap/206")Dahili Metodlar
+          %li
+            %a(href="/kitap/207")App
+          %li
+            %a(href="/kitap/208")Stiller
+          %li
+            %a(href="/kitap/209")Sınıflar
+          %li
+            %a(href="/kitap/210")Renkler
+  .accordion-group
+    .accordion-heading
+      %h4
+        %a.accordion-toggle(data-toggle="collapse" data-parent="#accordion2" href="#slotlar") Slotlar
+    .accordion-body.collapse(id="slotlar")
+      .accordion-inner
+        %h3 
+          %a(href="/kitap/211")Slotlar
+        %ul.nav.nav-tabs
+          %li
+            %a(href="/kitap/212")Art
+          %li
+            %a(href="/kitap/213")Elemanlar
+  
+  
+      
+        
+        

@@ -2,7 +2,7 @@
 
 
 %div.row
-  %div.span12
+  %div.span10
     %h1 Green Shoes'un Kuralları
     %h3
       Green Shoes'un nasıl çalıştığını tahmin etmeyi bırakalım. Bazı hassa noktalar 
@@ -10,6 +10,10 @@
       her şeyi sağlıklı çalıştırmak için 
       %b MUTLAKA 
       öğrenmelisiniz
+  %div.span2
+    = haml :gs_sidebar
+%div.row
+  %div.span12
     %hr
     %br
     %p 
@@ -267,7 +271,7 @@
     %br
     
     %p
-      Sotlarda sabir yükseklik pek kullanılmamalı. Genellikle yazılarınız ve 
+      Slotlarda sabir yükseklik pek kullanılmamalı. Genellikle yazılarınız ve 
       resimlerinizin oldukları kadar aşağı gitmesini istersiniz. Yükseklik genelde 
       doğal şekline bırakılır.
     %p
@@ -294,19 +298,179 @@
       end
     %br
     
+    %p 
+      Bu iç pencere daha fazla hafıza kullanır. Uygulamayı biraz daha zorlar. 
+      Eğer uygulamanızda bir sürü sabit yükseklikli slot var ve yavaşlama 
+      sorunu yaşıyorsanız yaklaşımınızı değiştirin.
+    %p
+      %b Not: 
+      Sabit yükseklik meselesi bugüne kadar Green Shoes'a deneme için 
+      eklenmişti. Sonuna 
+      %b flush 
+      metodu eklenmesi gerekir.
+    %br
     
-
-
-
-    %h3 Devam Edecek...
-
-
+    :coderay
+      #!Ruby
+      Shoes.app do
+        stack :width => 200 do
+          background "#DFA"
+          100.times do |i|
+            para "Paragraph No. \#{i}"
+          end
+        end
+      end
+    %br
+    %br
+    
+    %h1 Resim ve Şekil Blokları
+    %p
+      Bir çok yeni başlayanın ilk işi ekrana şekiller serpiştirmektir. Tüm karelerinizi 
+      ve yuvarlaklarınızı bir slota atmak daha kolaydır.
+    %h4
+      Ancaak! Şunu unutmayın ki; Shoes tüm bu şekiller için nesne üretecektir. 
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        fill black.push(0.1)
+        100.times do |i|
+          oval i, i, i * 2 if i > 0
+        end
+      end
+    %br
+    
+    %p
+      Bu örnekte yüz tane yuvarlak nesnesi üretiliyor. Bu kötü değil. Ama 
+      eğer bunu tek bir şekil içinde yaparsak nesneler biraz hafifliyecektir. 
+    %br
+    
+    :coderay
+      #!Ruby
+      # Bu daha Green Shoes'a uygulanmadı
+      Shoes.app do
+        fill black(0.1)
+        shape do
+          100.times do |i|
+            oval i, i, i * 2 if i > 0
+          end
+        end
+      end
+    %br
+    
+    %p
+      Fakat, bir dakika yuvarlakların içi boyanmadı ve boş kaldı. Sebebi yuvarlakların 
+      tek bir şekil içine toplanması ve Shoes'un şekilde nereyi boyaması gerektiğini 
+      bilememesi. 
+    %p
+      Bu durumda ancak içi boş çizimlerle çalışırken tek bir şekil altında çalıştırmak 
+      istersiniz.
+    %p Bir diğer seçenek te tüm yuvarlakları bir resim (image) içinde toplamak
+    %br
+    
+    :coderay
+      #!Ruby
+      # Bu da daha Green Shoes'a uyarlanmadı
+      Shoes.app do
+        fill black(0.1)
+        image 300, 300 do
+          100.times do |i|
+            oval i, i, i * 2
+          end
+        end
+      end
+    %br
+    
+    %p
+      İşte bu kadar, tüm yuvarlaklar 300 x 300 boyutunda tek bir image üzerinde 
+      toplandı. Bu yüz tane yuvarlak nesnesi durumunda image içinde toplamak 
+      belki hafıza olarak kar getirmiyor ama binlerce çizim olunca image bloğu 
+      size çok şey kazandırır.
+    %p
+      Önemli olan şu: Çizimlerinizi bir shape ya da image bloğu içinde toplamak 
+      çok zor değil. Bir deneyip zamandan tasarrufunuz olup olmayacağını 
+      deneyebilirsiniz. 
+    %p
+      %i not: 
+      Bu yazı yazılana kadar Green Shoes'a bu özellik henüz eklenmemişti.
+    %br
+    
+    %h1 UTF-8 Heryerde
+    %p
+      Ruby'nin kendisi henüz Unicode'la sorunlu. Ve UTF-8 bir çeşit Unicode. 
+      (
+      %a(href="http://en.wikipedia.org/wiki/UTF-8" target="_blank")wikipedia'
+      da UTF-8 açıklamasına bakabilirsiniz)
+    %p
+      Ancak, UTF-8 web'de çok kullanılır ve birçok platformlar onu destekler. 
+      Green Shoes tüm bu tartışmaların haricinde kalmak için tüm stringleri 
+      UTF-8 olarak kabul eder.
+    %p
+      Bu çok iyi çünkü bir çok değerli dili (Türkçe, Japonca, İspanyolca, Rusça 
+      vs.) Green Shoes'da UTF-8 kullanarak gösterebilirsiniz.
+    %p Bunu denemek için:
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        stack :margin => 10 do
+          @edit = edit_box do
+            @para.text = @edit.text
+          end
+          @para = para ""
+        end
+      end
+    %br
+    
+    %p
+      Bu uygulama edit box içine her yazdığınızı bir Green Shoes paragrafında 
+      gösterir. Her türlü ingilizce olmayan yazı kopyalayıp yapıştırabilirsiniz. 
+    %p
+      Bu iyi bir test çünkü edit box'ın UTF-8 karakterler okuduğunu gösterir. 
+      Ve paragraflara da her türlü UTF-8 karakteri yazabilirsiniz.
+    %p
+      %b Önemli not: 
+      Eğer bazı UTF-8 karakterleri göremiyorsanız, paragrafın fontunu 
+      değiştirmeniz gerekir. Bu Mac OS X makinalarda çok görülmektedir.
+    %p
+      OS X için iyi bir Japonca fontu 
+      %b AppleGothic 
+      ve Windows'ta
+      %b MS UI Gothic.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        para "てすと (te-su-to)",
+          font: case RUBY_PLATFORM
+            when /mingw/; "MS UI Gothic"
+            when /darwin/; "AppleGothic, Arial"
+            else "Arial"
+          end
+      end
+    %br
+    
+    %p
+      Bir daha, Green Shoes'da string alan herşey UTF-8 string ister. Edit Box'lar ,
+      Edit Line'lar, List Box'lar, Pencere başlıkları ve yazı blokları hepsi UTF-8 
+      ister. Eğer geçersiz karakter içeren bir string gönderirseniz konsoola bir 
+      hata mesajı çıkacaktır.
+    %br
+    
+    %h1 Main App ve Onun Gerekleri
+    %p
+      %b NOT: 
+      Bu kural Raisins (Shoes v.2) için geçerlidir. Policeman ve Green Shoes 
+      TOPLEVEL_BINDING kullanır. 
 
 
     %hr
-    %a.btn.btn-large.btn-success.pull-left(href="/kitap/202")
+    %a.btn.btn-large.btn-success.pull-left(href="/kitap/203")
       %i.icon-backward.icon-white
-      Shoes'a Giriş
-    %a.btn.btn-large.btn-success.pull-right(href="/kitap/204")
-      Green Shoes'un Kuralları
+      Green Shoes Kurulumu
+    %a.btn.btn-large.btn-success.pull-right(href="/kitap/205")
+      Shoes
       %i.icon-forward.icon-white
