@@ -5,17 +5,56 @@
     %h1 Shoes
     %h3
       Green Shoes'un işi gücü bu pencereler içine pencereler ve birşeyler çizmek. 
-      Şimdi pencerenin kendisine odaklanalım. 
-
+      Şimdi pencerenin kendisine odaklanalım. Diğer bölümler 
+      %a(href="/kitap/211") Slotlar 
+      ve 
+      %a(href="/kitap/218") Elemanlar
+      pencerenin içine giren herşeyi kapsar.
+    %hr
   %div.span2
     = haml :gs_sidebar
 %div.row
   %div.span12
+    %p
+      El kitabının burası biraz sözlük görünümünde. Her sayfa genellikle içinde 
+      bulunduğu başlığın metodlarının bir listesini içeriyor. Burda amaç hem kolay 
+      bulunabilir hem kolay anlaşılabilir olsun.
+    %p
+      Eğer hala anlamakta zorlanıyorsanız belki tekrar 
+      %a(href="/kitap/201")başa 
+      dönebilir ya da 
+      %a(href="https://cloud.github.com/downloads/shoes/shoes/nks.pdf")
+        Nobody Knows Shoes kitabını 
+      deneyebilirsiniz.
+    %br
+    
+    %h1 Yolunuzu Bulmak
+    %p
+      Bu bölümde şunlar var:
+    %ul
+      %li
+        %a(href="/kitap/206") Dahili Metodlar 
+        Bir Green Shoes programında heryerde bulunabilecek ortak metodlar.
+      %li
+        %a(href="/kitap/207") App Penceresi  
+        Her Green Shoes ana penceresnde olabilecek metodlar.
+      %li
+        %a(href="/kitap/208") Stiller Listesi   
+        Green Shoes'da bulunan tüm stillerin listesi.
+      %li
+        %a(href="/kitap/209") Sınıflar Listesi   
+        Green Shoes sınıflarının ve altsınıflarının listesi
+      %li
+        %a(href="/kitap/210") Renkler Listesi   
+        Hafızada tanımlı renklerin bir listesi ve herbirinin 
+        %a(href="/kitap/206#rgb") rgb 
+        sayıları.
 
+    %h3 Devam Edecek...
     %hr
-    %a.btn.btn-large.btn-success.pull-left(href="/kitap/203")
-      %i.icon-backward.icon-white
-      Green Shoes Kurulumu
-    %a.btn.btn-large.btn-success.pull-right(href="/kitap/205")
-      Shoes
+    %a.btn.btn-large.btn-success.pull-left(href="/kitap/204")
+      %i.icon-backward.icon-white 
+      Green Shoes Kuralları
+    %a.btn.btn-large.btn-success.pull-right(href="/kitap/206")
+      Dahili Metodlar 
       %i.icon-forward.icon-white
