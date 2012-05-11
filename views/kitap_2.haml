@@ -1164,8 +1164,310 @@
       t.aMethod( "A New Thing" )
     %br
     
+    %p
+      Buradaki ilk satır bir Thing nesnesi üretir ve ikinci satır da 
+      %b aMethod 
+      metodunu çağırır. Thing sınıfı hiçbir yerden türememiş olduğundan (
+      Aslında tüm Ruby sınıfları Object sınıfından türemiştir, ama burda 
+      anlatılmak istenen programcı tarafından üretilen bir sınıftan türemediği) 
+      burada ilgi çekecek bir hareket yok. Çıktı 
+      %b Thing.initialize 
+      ve 
+      %b Thing.aMethod 
+      metodları çağrılmasından sonraki etkiyi göstermek için 
+      %b inspect 
+      metodunu kullanır. 
+      %b inspect 
+      metodu, tüm nesneler için bir debug aracı olarak kullanılabilir. Burada bize 
+      üretilen nesnenin özel tanımlama numarası olan bir hexadesimal sayı ve 
+      arkasından 
+      %b @name 
+      ve 
+      %b @description 
+      değişkenlerinin değerlerini gösterir
+      
+    %p
+      Şimdi çıktı terminalinde 
+      %b 2 
+      girerek 
+      %b test2 
+      metodunu çalıştırın. Bu metod Thing2 nesnesi 
+      %b t2'
+      yi üretir ve 
+      %b t2.aMethod 
+      metodunu çağırır:
+    %br
     
+    :coderay
+      #!Ruby
+      t2 = Thing2.new( "A Thing2", "a Thing2 thing of great beauty" )
+      t2.aMethod( "A New Thing2", "a new Thing2 description" )
+    %br
     
-    39
+    %p
+      Çıktıya dikkatle bakın. 
+      %b t2 
+      her nekadar Thing2 nesnesi de olsa , ilk önce Thing sınıfının 
+      %b initialize 
+      metodu çağrılır. Nasıl olduğunu anlamak için Thing2 sınıfının 
+      %b initialize 
+      metoduna bir bakın:
+    %br
+    
+    :coderay
+      #!Ruby
+      def initialize( aName, aDescription )
+        super
+        @fulldescription = "This is \#{@name}, which is \#{@description}"       
+        puts("Thing2.initialize: \#{self.inspect}\n\n")
+      end 
+    %br
+    
+    %p
+      Burada 
+      %b super 
+      kelimesi Thing2'nin atası yada 'superclass'ının 
+      %b initialize 
+      metodunu çağırıyor. Thing2'nin superclass'ı tanımlamasından da görüleceği 
+      üzere Thing sınıfı:
+    %br
+    
+    :coderay
+      #!Ruby 
+      class Thing2 < Thing
+    %br
+    
+    %p
+      Ruby'de 
+      %b super 
+      kelimesi tek başına kullanıldığında (argüman verilmeden) bulunduğu sınıfın 
+      bulunduğu metoda (burada
+      %b Thing2.initialize
+      ) gönderilen tüm argümanları üst sınıflardaki ilk bulduğu aynı isimdeki 
+      metoda (burada 
+      %b Thing.initialize
+      ) gönderir. Alternatif olarak 
+      %b super 
+      kelimesine bir kısım argüman ekleyebilirsiniz. Buradaki durumda aşağıdaki 
+      kod aynı işlemi yapacaktır:
+    %br
+    
+    :coderay
+      #!Ruby
+      super( aName, aDescription )
+    %br
+    
+    %p
+      Her nekadar 
+      %b super 
+      kelimesinin argümansız kullanımına müsaade edilse de anlam berraklığı 
+      bakımından size superclass'a gönderilen argümanları yazmanızı öneririm. 
+      Mesela Thing2'nin 
+      %b aMethod'
+      u Thing sınıfına sadece 
+      %b aName 
+      argümanı göndermekte:
+    %br
+    
+    :coderay
+      #!Ruby
+      super( aNewName ) 
+    %br
+    
+    %p
+      Bu yüzden 
+      %b Thing2.aMethod 
+      çağrıldığında 
+      %b @description 
+      değeri değişmez.
+    %p
+      Şimdi eğer Thing3'e bakarsanız, bunun da bir yeni değişken eklediğini 
+      göreceksiniz 
+      %b @value. Onun 
+      %b initialize 
+      metodu yapılandırmasında 
+      %b aName 
+      ve 
+      %b aDescription 
+      superclass'ı olan Thing2'ye gönderiliyor. Bildiğiniz gibi Thing2 de bunları 
+      süperclass'ı olan Thing'e göndermekte.
+    %p 
+      Programın çalıştırılmasıyla beraber consolda seçenek olarak 
+      %b 3 
+      girin, bu durumda şu kod çalışacaktır:
+    %br
+    
+    :coderay
+      #!Ruby
+      t3 = Thing3.new("A Thing 3", "a Thing3 full of Thing and Thing2iness",500)
+      t3.aMethod( "A New Thing3", "and a new Thing3 description",1000) 
+    %br
+    
+    %p
+      Hiyerarşide 
+      %b initialize 
+      ve  
+      %b aMethod 
+      metodlarının nasıl çağrılıp işlendiğine dikkat edin. 
+    %p
+      Örnekte yaptığım gibi bir superclass metodu üzerine yazmak gerekli 
+      bişey değil. Bu sadece yeni bir davranış kazandırmak istediğinizde 
+      geçerlidir. Thing4 
+      %b initialize metodunu atlar ve 
+      %b aMethod 
+      metodu üzerine yazar.
+    %p
+      Consolda girdi olarak 
+      %b 4 
+      girerek şu kodu çalıştırırsınız:
+    %br
+    
+    :coderay
+      #!Ruby
+      t4 = Thing4.new( "A Thing4", "the nicest Thing4 you will ever see", 10 )
+      t4.aMethod
+    %br
+    
+    %p
+      Bunu çalıştırdığınızda 
+      %b initialize 
+      metodu çağrılırken Thing4'te tanımlanmadığı için superclass metodu 
+      %b Thing3.initialize 
+      metodu çağrıldığını görürsünüz. Fakat 
+      %b aMethod 
+      metodu eskisini çağırmadığı için onun yerine geçer ve sadece Thing4 
+      sınıfında tanımlanan metod içindekiler çalışır. 
+    %p
+      Son olarak Thing5 sınıfı Thing4 sınıfından türetilir ve hiç bişey değiştirmez. 
+      Consolda seçenek olarak 
+      %b 5 
+      girin ve şu kod çalışır:
+    %br
+    
+    :coderay
+      #!Ruby
+      t5 = Thing5.new( "A Thing5", "a very simple Thing5", 40 )
+      t5.aMethod
+    %br
+    
+    %p
+      Bu sefer de Ruby ilk 
+      %b initialize 
+      metodunu bulana kadar üst sınıflara gider. Burda önce Thing5'e bakılır 
+      olmayınca Thing4'e orda da olmadığı için Thing3 metodu çağırılacaktır. 
+      (Bu da Thing2 ve Thing metodlarına çağrı yapar) Ama 
+      %b aMethod 
+      metodunun ilk uygulaması Thing4'te olduğu için onunki çağırılır.
+    %br
+    %h4.sag superclasses.rb
+    :coderay
+      #!Ruby
+      
+      class One
+      end
+      
+      class Two < One
+      end
+      
+      class Three < Two
+      end
+      
+      # Three sınıfından bir nesne üretelim 
+      # ve sınıf adını yazalım
+      ob = Three.new
+      x = ob.class
+      puts( x )
+      
+      # şimdi hiyerarşide yukarı doğru giderek 
+      # nesnemizin atalarına bakalım
+      begin
+        x = x.superclass
+        puts(x) 
+      end until x == nil 
+    %br
+    
+    .alert.alert-info
+      %p Nihayetinde tüm Ruby sınıfları Object sınıfından türemiştir.
+      %p
+        Object sınıfının kendisi superclass sahibi olmadığından superclass'ına 
+        yapılacak işlemler 
+        %i nill 
+        değeri dönecektir.
+      %br
+      
+      :coderay
+        #!Ruby
+        begin
+          x = x.superclass
+          puts(x) 
+        end until x == nil
+      %br
+    %br
+    
+    %h3 SINIFLARIN İÇİNDEKİ SABİTLER
+    %br
+    %p
+      Bazen sınıf içinde tanımlanmış sabitlere (bir değeri olan  ve isimleri 
+      büyük harfle başlayan tanımlar) erişmemiz gerekir. Diyelim şöyle bir sınıf 
+      tanımınız var:
+    %br
+    
+    %h4.sag classconst.rb
+    :coderay
+      #!Ruby
+      
+      class X
+        A = 10
+        
+        class Y
+          def xyz
+            puts( "goodbye" )
+          end
+        end
+        
+        def self.abc
+          puts("hello")
+        end
+      end
+      
+      puts( X::A )
+      X::abc		# sınıf metodlarına da :: ile erişebilirsiniz
+      X.abc		# tabi tek bir nokta da burda çalışır
+      
+      ob = X::Y.new   # sınıf içinde sınıf
+      ob.xyz
+    %br
+    
+    %p
+      Burada sabit olan 
+      %b A'
+      ya erişmek için özel bir kapsam inceleme operatörü olan 
+      %b :: 
+      operatörünü kullanmalısınız:
+    %br
+    :coderay
+      #!Ruby
+       X::A
+    %br
+    
+    %p
+      Sınıf isimleri de sabitlerdir. Bu yüzden aynı operatör ile sınıf içindeki 
+      tanımlanmış sınıflara da erişebilirsiniz. Bu sayede içiçe sınıflarda nesne 
+      tanımlaması yapılabilir mesela 
+      %b X 
+      içindeki 
+      %b Y 
+      gibi:
+    %br
+    
+    :coderay
+      #!Ruby
+      ob = X::Y.new
+    %br
+    
+    %h3 Kısmi Sınıflar (Partial Classes)
+    
+
+    43
     %h3 Devam Edecek...
     
