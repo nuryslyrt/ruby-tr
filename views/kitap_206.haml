@@ -1,0 +1,175 @@
+-# coding: UTF-8
+
+
+%div.row
+  %div.span10
+    %h1 Built-in Metodlar
+    %h3
+      Bu metodlar Green Shoes programlarında herhangi bir yerde 
+      kullanılabilirler.
+    %hr
+    %h4 Çeviren : Ümit Kayacık
+  %div.span2
+    = haml :gs_sidebar
+%div.row
+  %div.span12
+    %p
+      Buradaki tüm komutlar farklı çünkü onlar bir noktadan sonra gelmiyor. 
+      %b 
+        Bu kitapdaki diğer tüm anlatılan metodlar bir noktayla bir nesneye 
+        bağlanmaktadır. 
+      Ama burdakiler built-in (dahili) metodlar (ayrıca kernel metodları diye 
+      bilinir) Yani nokta yok!
+    %p
+      En bilinen biri 
+      %b alert:
+    %br
+    
+    :coderay
+      #!Ruby
+      alert "Hiç nokta görünmüyor"
+    %br
+    
+    %p
+      Bununla Kernel metodu olmayan ve sadece array'ler ve string'lerde 
+      geçerli olan 
+      %b reverse 
+      metodunu karşılaştırın:
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        para "Plaster of Paris".reverse
+        #=> "siraP fo retsalP"
+        para [:dogs, :cows, :snakes].reverse
+        #=> [:snakes, :cows, :dogs]
+      end
+    %br
+    
+    %p
+      Buton vb şeyler çizmek için olan birçok Green Shoes metodu slotlara 
+      iliştirilmiştir. Daha fazla bilgi için 
+      %a(href="/kitap/211") Slotlar 
+      bölümüne bakınız.
+    %br
+    
+    %h1 Dahili Sabitler
+    %p
+      Green Shoes eğer hangi versiyon kullandığınızı test edebileceğiniz 
+      dahili faydalı sabitlere sahiptir.
+    %p
+      %b DIR 
+      %code green_shoes/lib 
+      klasörünün tüm yer bilgisi (path)
+    %p
+      %b COLORS 
+      app üzerinde hazır tüm renklerin listesi.
+    %p
+      %b FONTS 
+      app üzerinde hazır tüm fontların listesi.
+    %p
+      %b VERSION 
+      Green Shoes versiyonu.
+    %br
+    :coderay
+      #!Ruby
+      Shoes.app do
+        para VERSION
+        para fg(DIR, red)
+        image File.join(DIR, '../static/gshoes-icon.png')
+        para fg(FONTS.join(', '), green)
+        para COLORS.map{|k, v| [k, v]}
+      end
+    %br
+    
+    %a(name="alert")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#alert" style="width: 100%;") 
+        %b alert(message: a string, :block => true or false, title: a string) 
+        » nil
+    %br
+    %p
+      Kısa bir mesajı içeren bir popup pencere açar.
+    %br
+    
+    :coderay
+      #!Ruby
+      alert "Üzgünüm araya girmek zorundaydım!"
+    %br
+    
+    %p
+      Alert komutunu kullanmaktan kaçının, kullanıcının canını sıkarlar. Eğer 
+      alert komutunu programınızda debug amaçlı kullanıyorsanız, standart 
+      Ruby metodları 
+      %b puts 
+      ve 
+      %b p 
+      metodlarını kullanın. 
+    %p
+      Bu komutun diğer blokların çalışmasını engellememesi için 
+      %code :block => false 
+      seçeneğini kullanın. Etiketini değiştirmek için 
+      %code :title => bir string 
+      seçeneğini kullanın.
+    
+    %a(name="ask")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#ask" style="width: 100%;") 
+        %b ask(message: a string) 
+        » a string
+    %br
+    
+    %p
+      Bir popup pencere açar ve bir soru sorar. Diyelim birinin adını öğrenmek 
+      istiyorsunuz:
+    %br
+    
+    :coderay
+      #!Ruby
+      if name = ask("Adınızı Girer misiniz:")
+        Shoes.app{para "Welcome, \#{name}!"}
+      end
+    %br
+    
+    %p
+      Yukardaki script çalıştırıldığında kullanıcı üzerinde adını girmesi beklenen 
+      bir kutu içeren bir pencereyle karşılaşır. Girilen isim 
+      %b name 
+      değişkeninde saklanır.
+    
+    %a(name="ask_color")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#ask_color" style="width: 100%;") 
+        %b ask_color(title: a string) 
+        » a RGB array
+    %br
+    
+    %p
+      
+    
+    %a(name="rgb")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#rgb" style="width: 100%;") 
+        %b rgb
+    %br
+    
+    
+
+    %h3 Devam Edecek...
+
+    %hr
+    %a.btn.btn-large.btn-success.pull-left(href="/kitap/205")
+      %i.icon-backward.icon-white 
+      Shoes
+    %a.btn.btn-large.btn-success.pull-right(href="/kitap/207")
+      App Sınıfı
+      %i.icon-forward.icon-white
