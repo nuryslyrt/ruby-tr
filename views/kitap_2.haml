@@ -1466,8 +1466,97 @@
     %br
     
     %h3 Kısmi Sınıflar (Partial Classes)
+    %p
+      Ruby'de bir sınıfın tamamını bir tek yerde tanımlamak gerekmez. Eğer isterseniz 
+      programınızın değişik yerlerinde sınıf tanımlamanızı parça parça yapabilirsiniz. 
+      Bir sınıf bir diğer sınıftan türemişse sonradan gelen kısmı sınıf 
+      tanımlamasında da 
+      %b < 
+      operatörü kullanılması opsiyondur. Burada iki sınıf tanımladım 
+      %b A 
+      ve ondan türeme 
+      %b B 
+      sınıfları:
+    %br
     
+    %h4.sag partial_classes
+    :coderay
+      #!Ruby
+      class A
+        def a
+          puts( "a" )
+        end
+      end
 
-    43
-    %h3 Devam Edecek...
+      class B < A
+        def ba1
+          puts( "ba1" )
+        end
+      end
+
+      class A
+        def b
+          puts( "b" )
+        end
+      end
+
+      class B < A
+        def ba2
+          puts( "ba2" )
+        end
+      end
+      
+      
+      class Array
+        def gribbit
+          puts( "gribbit" )
+        end
+      end
+    %br
+    
+    %p Şimdi eğer bir B nesnesi üretirsem, A ve B'nin tüm metodlarını kullanabilirim:
+    %br
+    
+    :coderay
+      #!Ruby
+
+      ob = B.new
+      ob.a
+      ob.b
+      ob.ba1
+      ob.ba2
+      [1,2,3].gribbit
+    %br
+    
+    %p
+      Ayrıca isterseniz Ruby'nin standart kütüphanesindeki sınıflara da kısmi 
+      sınıf eklemeleri yapabilirsiniz. Mesela Array'lere:
+    %br
+    
+    :coderay
+      #!Ruby
+      class Array
+        def gribbit
+          puts( "gribbit" )
+        end
+      end
+    %br
+    
+    %p
+      Bu Ruby Array sınıfına 
+      %b gridbit 
+      metodunu ekler. Bu noktadan sonra array kullanırken bu metodu da çağırabilirsiniz:
+    :coderay
+      #!Ruby
+      [1,2,3].gribbit
+    %br
+    
+    %hr
+    %a.btn.btn-large.btn-success.pull-left(href="/kitap/1")
+      %i.icon-backward.icon-white
+      Bölüm 1 Stringler, Sayılar, Sınıflar ve Nesneler
+    %a.btn.btn-large.btn-success.pull-right(href="/kitap/3")
+      Bölüm 3 Stringler ve Range
+      %i.icon-forward.icon-white
+      
     
