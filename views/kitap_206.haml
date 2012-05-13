@@ -10,6 +10,12 @@
     %hr
     %h4 Çeviren : Ümit Kayacık
   %div.span2
+    %form.form-search(action='/k_search' method='GET')
+      %input(type="hidden" name="start" value="201")
+      %input(type="hidden" name="end" value="238")
+      %input.search-query(type="text" name="search_str" style="width: 70px;" placeholder="Ara")
+      %button.btn(type="submit")
+        %i.icon-search
     = haml :gs_sidebar
 %div.row
   %div.span12
