@@ -88,7 +88,8 @@
     %br
     %p
       %a.btn.btn-inverse(href="#alert" style="width: 100%;") 
-        %b alert(message: a string, :block => true or false, title: a string) 
+        %big 
+          %b alert(message: a string, :block => true or false, title: a string) 
         » nil
     %br
     %p
@@ -120,7 +121,8 @@
     %br
     %p
       %a.btn.btn-inverse(href="#ask" style="width: 100%;") 
-        %b ask(message: a string) 
+        %big 
+          %b ask(message: a string) 
         » a string
     %br
     
@@ -147,24 +149,328 @@
     %br
     %p
       %a.btn.btn-inverse(href="#ask_color" style="width: 100%;") 
-        %b ask_color(title: a string) 
+        %big 
+          %b ask_color(title: a string) 
         » a RGB array
     %br
     
     %p
-      
+      Bir renk seçme popup penceresi açar. Program bir renk seçilene kadar 
+      bekleyecektir. Sonuç olarak size bir 
+      %b Color 
+      nesnesi döner. Bu rengi nasıl kullanacağınızı görmek için arama formundan 
+      %b Color 
+      aratın.
+    %br
+    
+    :coderay
+      #!Ruby
+      backcolor = ask_color "Pick a background"
+      Shoes.app do
+        background backcolor
+      end
+    %br
+    
+    %a(name="ask_open_file")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#ask_open_file" style="width: 100%;") 
+        %big 
+          %b ask_open_file() 
+        » a String
+    %br
+    
+    %p
+      Bir "Open File.." (açılacak dosyayı seçin) diyalog popup penceresi açar. 
+      Standart işletim sistemi pencerelerinden biridir. Klasör ve dosyalarınızı 
+      gösterir ve birini seçmenize olanak sağlar.
+    %br
+    
+    :coderay
+      #!Ruby
+      filename = ask_open_file
+      Shoes.app do
+        para File.read(filename)
+      end
+    %br
+    
+    %a(name="ask_save_file")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#ask_save_file" style="width: 100%;") 
+        %big 
+          %b ask_save_file() 
+        » a String
+    %br
+    
+    %p
+      %b ask_open_file 
+      metodunda olduğu gibi bir popup açar ama dosyanın kaydedileceği yeri 
+      sorar.
+    %br
+    
+    :coderay
+      #!Ruby
+      save_as = ask_save_file
+      Shoes.app do
+        para save_as
+      end
+    %br
+    
+    %a(name="ask_open_folder")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#ask_open_folder" style="width: 100%;") 
+        %big 
+          %b ask_open_folder() 
+        » a String
+    %br
+    
+    %p
+      Bir "Open Folder..." popup penceresi açar ve standart görünümde sizden 
+      açılacak klasörü seçmenizi ister.
+    %br
+    
+    :coderay
+      #!Ruby
+      folder = ask_open_folder
+      Shoes.app do
+        para Dir.entries(folder)
+      end
+    %br
+    
+    %a(name="ask_save_folder")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#ask_save_folder" style="width: 100%;") 
+        %big 
+          %b ask_save_folder() 
+        » a String
+    %br
+    
+    %p
+      %b ask_open_folder 
+      metodunda olduğu gibi bu sefer "Save Folder..." seçim ekranı açar.
+    %br
+    
+    :coderay
+      #!Ruby
+      save_to = ask_save_folder
+      Shoes.app do
+        para save_to
+      end
+    %br
+    
+    %a(name="confirm")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#confirm" style="width: 100%;") 
+        %big 
+          %b confirm(question: a string) 
+        » true or false 
+    %br
+    
+    %p
+      Bir popup pencerede 
+      %i yes 
+      veya 
+      %i no 
+      seçilecek soru sorar. Eğer kullanıcı 
+      %b yes 
+      butonunu tıklarsa 
+      %b true 
+      değeri döner. Diğer durumlarda 
+      %b false 
+      değeri alırsınız.
+    %br
+    
+    :coderay
+      #!Ruby
+      if confirm("Bir daire çizeyim mi?")
+       Shoes.app{ oval top: 0, left: 0, radius: 50 }
+      end 
+    %br
+    
+    %a(name="exit")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#exit" style="width: 100%;") 
+        %big 
+          %b exit() 
+    %br
+    
+    %p
+      Programınızı bitirir. Programın aniden bitmesini istediğiniz heryerde onu 
+      çağırabilirsiniz.
+    %p
+      %b LÜTFEN DİKKAT: 
+      Eğer Ruby'nin kendi 
+      %b exit 
+      metodunu kullanmak ihtiyacı doğarsa 
+      %b Kernel.exit 
+      metodunu çağırın.
+    %br
+    
+    %a(name="font")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#font" style="width: 100%;") 
+        %big 
+          %b font(message: a string) 
+        » font family isimlerinden bir array 
+    %br
+    
+    %p
+      Bir True Type'ı (ya da diğer tip font) bir dosyadan yükler. True Type 
+      tüm platformlarda desteklenmektedir, ancak siz sisteminizin desteklediği 
+      başka bir font kullanmak isteyebilirsiniz. Shoes her işletim sisteminin dahili 
+      font sistemini kullanabilir.
+    %p  
+      %b Not: 
+      Green Shoes şimdiye kadar font metodunu desteklememektedir.
+    %p
+      Burada hangi fontların hangi platformlarda kullanıldığına dair kaba bir bilgi 
+      veriliyor:
+    %ul
+      %li Bitmap fonts (.bdf, .pcf, .snf) - Linux
+      %li Font resource (.fon) - Windows
+      %li Windows bitmap font file (.fnt) - Linux, Windows
+      %li PostScript OpenType font (.otf) - Mac OS X, Linux, Windows
+      %li Type1 multiple master (.mmm) - Windows
+      %li Type1 font bits (.pfb) - Linux, Windows
+      %li Type1 font metrics (.pfm) - Linux, Windows
+      %li TrueType font (.ttf) - Mac OS X, Linux, Windows
+      %li TrueType collection (.ttc) - Mac OS X, Linux, Windows
+    %p
+      Eğer font başarılı bir şekilde yüklenmişse , dosya içinde bulunan fontların 
+      bir listesini array olarak alırsınız. Aksi takdirde 
+      %b nil 
+      değeri alırsınız.
+    %p
+      Bunların dışında bir de 
+      %b Shoes::FONTS 
+      sabiti bulunduğunuz platformdaki tüm fontların listesini içerir. Bir font'un 
+      olabilirliğini 
+      %b include? 
+      metoduyla test edebilirsiniz.
+    %br
+    
+    :coderay
+      #!Ruby
+      if Shoes::FONTS.include? "Coolvetica"
+        alert "Coolvetica sisteminizde yüklü."
+      else
+        alert "Coolvetica font'u sisteminizde yok."
+      end
+    %br
+    
+    %p
+      Fontları göstermekle ilgili sorun yaşıyorsanız, uygulamanızın kullanılmadan 
+      önce fontları yüklemesini sağlayın. Özellikle OS X'de fontlar yüklenmeden 
+      önce kullanılmaya kalkılırsa, font cache yüklenen fontları gözardı edebiliyor. 
+    %br
+    
+    %a(name="gradient")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#gradient" style="width: 100%;") 
+        %big 
+          %b gradient(color1, color2) 
+        » a range of RGB array
+    %br
+    
+    %p
+      İki renkten bir lineer gradient renk yapar. Her renk için bir string kullanabilir 
+      veya color/rgb metoduyla belirtebilirsiniz. 
+      %b gradient(green, red) 
+      ile 
+      %b green..red 
+      birbirine eşittir. Ayrıca farklı argüman tipleri de kullanabilirsiniz. Mesela : 
+      %b gradient(green, "#fa3")
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        oval 100, 100, 100,
+          fill: gradient(green, '#FA3'), angle: 45
+      end
+    %br
+    
+    %a(name="gray")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#gray" style="width: 100%;") 
+        %big 
+          %b gray(the numbers: darkness, alpha) 
+        » a RGB array
+    %br
+    
+    %p
+      darkness değerine göre ve bir alpha opsiyonel değerine göre gri ton 
+      oluşturun.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        nostroke
+        11.times do |i|
+          y = x = 50 + 10 * i
+          r = 200 - 10 * i
+          oval x, y, r, fill: gray(1-i*0.1)
+        end
+      end
+    %br
     
     %a(name="rgb")
     %br
     %br
     %p
       %a.btn.btn-inverse(href="#rgb" style="width: 100%;") 
-        %b rgb
+        %big 
+          %b rgb(red, green, blue, alpha) 
+        » an array of decimal numbers
     %br
     
+    %p
+      Red , green ve blue bileşenlerinden bir renk üretir. Alpha ile opsiyonel olarak 
+      şeffaflık derecesi verilebilir.
+    %p
+      Sayı değer girdiğinizde 0 ve 255 arasında değer girin.
+    %br
     
-
-    %h3 Devam Edecek...
+    :coderay
+      #!Ruby
+      Shoes.app do
+        blueviolet = rgb(138, 43, 226, 0.5)
+        darkgreen = rgb(0, 100, 0, 0.5)
+        oval 100, 100, 100,
+          fill: [blueviolet, darkgreen].sample(1)
+      end
+    %br
+    
+    %p ya da 0.0 ile 1.0 arası noktalı sayı girin
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        blueviolet = rgb(0.54, 0.17, 0.89)
+        darkgreen = rgb(0, 0.4, 0)
+        oval 100, 100, 100,
+          fill: [blueviolet, darkgreen].sample(1)
+      end
+    %br
 
     %hr
     %a.btn.btn-large.btn-success.pull-left(href="/kitap/205")
