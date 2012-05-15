@@ -11,9 +11,127 @@
   %div.span12
     %h3  Stringler ve Range
     %p 
+      Programımın şimdiye kadarki kısmında stringleri birçok kez kullandım. Gerçekte 
+      kitabın en başında bir string kullanılmıştı. Tekrar yazalım:
+    %br
     
-      
+    :coderay
+      #!Ruby
+      puts 'hello world'
+    %br
+    
+    %p
+      Bu ilk programda tek tırnakla çevrili bir string varken, aşağıdaki çift tırnakla 
+      çevrili:
+    %br
+    
+    :coderay
+      #!Ruby
+      print('Enter your name: ' )
+      name = gets()
+      puts( "Hello \#{name}" )
+    %br
+    
+    %p
+      Çift tırnakla belirtilen stringler tek tırnakla belirtilenlere göre çok daha 
+      fazla iş yaparlar. Özellikle kendilerine verilen bir kısım kodu işletmeleri 
+      ilginçtir. Bir kodun string içinde işletilmesini istiyorsanız, 
+      %b # 
+      işareti arkasından gelen süslü parantezler arasına yazabilirsiniz.
+    %p
+      Yukarıdaki örnekte 
+      %b \#{name} 
+      yazısyla Ruby'ye 
+      %b name 
+      değişkeninin değerini alıp bu yazı yerine o değerin yazılması emrediliyor. 
+      Böylece eğer 
+      %b name 
+      değeri "Fred" ise "Hello Fred" stringi gösterilecektir. 
+      %b 1strings.rb 
+      örnek programı çift tırnaklı bu yapının içinde kod işletilmesi hakkında birkaç 
+      değişik örnek veriyor.
+    %br
+    
+    %h4.sag 1strings.rb
+    :coderay
+      #!Ruby
+      class MyClass
+        attr_accessor :name
+        attr_accessor :number
+        
+        def initialize( aName, aNumber )
+          @name	= aName
+          @number = aNumber
+        end
+        
+        def ten
+          return 10
+        end
+        
+      end
 
+
+      ob = MyClass.new( "James Bond", "007" )
+      puts( "Çift Tırnaklı: Benim adım \#{ob.name} ve benim numaram \#{ob.number}" )
+      puts( "Burada'ki bir tab\tbir new line\nbir hesaplama \#{2*3} ve bir metod çağrısı \#{ob.ten}" )
+      puts( 'Tek Tırnaklı: Benim adım \#{ob.name} ve benim numaram \#{ob.number}' )
+      puts( 'Burada\'ki bir tab\tbir new line\nbir hesaplama \#{2*3} ve bir metod çağrısı \#{ob.ten}' )
+    %br
+    
+    %p
+      Çift tırnaklı stringler sadece 
+      %b ob.name 
+      gibi değerleri göstermez, 
+      %b 2*3 
+      gibi işlem sonuçlarını da gösterir ya da 
+      %b ob.ten 
+      gibi bir metod sonucu da olabilir. Ayrıca "escape karakterler" de kullanılabilir 
+      burada "\n" ve "\t" yeni satır ve tab işaretlerini temsil ediyor.
+    %p
+      Tek tırnaklı bir string aynı işletimleri yapmaz. Tek tırnaklılarda da escape 
+      karakter olabilir ancak sadece kendisinden sonra gelen işaretin karakter 
+      olarak kullanılacağını belirtir. Bu tek tırnaklı string içinde tek tırnak işareti 
+      olacağı zaman faydalıdır.
+    %br
+    
+    :coderay
+      #!Ruby
+      'It\'s my party'
+    %br
+    
+    %p
+      %b ten 
+      isimli metodun 10 değerini geri döndüğü düşünüldüğünde şöyle bir kod 
+      yazılabilir:
+    %br
+    
+    :coderay
+      #!Ruby
+      puts( "Burada'ki bir tab\tbir new line\nbir hesaplama \#{2*3} ve bir metod çağrısı \#{ob.ten}" )
+    %br
+    
+    %p
+      Bu çift tırnaklı bir string olduğu için gömülü elemanlar işlenecek ve 
+      aşağıdaki yazı gösterilecektir.
+    %br
+    
+    :coderay
+      #!Bash
+      Burada'ki bir tab     bir new line
+      bir hesaplama 6 ve bir metod çağrısı 10
+    %br
+    
+    %p
+      Şimdi bir de tek tırnak kullanılınca ne oluyor bakalım:
+    %br
+    
+    :coderay
+      #!Ruby
+      puts( 'Burada\'ki bir tab\tbir new line\nbir hesaplama \#{2*3} ve bir metod çağrısı \#{ob.ten}' )
+    %br
+    
+    %h3 Kullanıcı Tanıtımlı String Sınırlayıcılar
+      
     47
     %h3 Devam Edecek...
     %hr
