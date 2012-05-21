@@ -189,7 +189,115 @@
     %br
     
     %p
-      Bundan başka kendi string sınırlayıcılarınızı da tayin edebilirsiniz. 
+      Bundan başka kendi string sınırlayıcılarınızı da tayin edebilirsiniz. Bunlar 
+      alfanümerik olmayan karakterler olmalıdır ve pound ve hash (#) karakteri 
+      gibi Ruby'de anlamı olan karakterler bile kullanılabilir. Seçtiğiniz karakteri 
+      %b %Q 
+      veya 
+      %b %q 
+      arkasına koymalısınız. Ayrıca stringin sonuna da aynı karakteri koymayı 
+      unutmayın. Eğer sınırlayıcınız köşeli parantezse string sonunda da kapatın. 
+    %br
+    
+    :coderay
+      #!Ruby
+      %Q[This is a string]
+    %br
+    
+    %h4.sag 3string.rb
+    :coderay
+      #!Ruby
+      class MyClass
+        attr_accessor :name
+        attr_accessor :number
+        
+        def initialize( aName, aNumber )
+          @name	= aName
+          @number = aNumber
+        end
+        
+        def ten
+          return 10
+        end
+        
+      end
+      
+      ob = MyClass.new( "James Bond", "007" )
+      puts( %Q$Benim adım \#{ob.name} ve numaram \#{ob.number}$ )
+      
+      # new line da kullanabilirsiniz
+      puts( %Q
+      Bu bir tab\tbir new line\nbir hesap \#{2*3} ve bir metod çağrısı \#{ob.ten}
+       )
+      
+      # tab kullanırsak 
+      puts( %Q	Benim adım \#{ob.name} ve numaram \#{ob.number}	 )
+      
+      # * kullanımı - not: eğer stringde * varsa escape karakter gerekir \* in 
+      # fakat işlem içinde gerekmez \#{2*3}
+      puts( %Q*Bu bir tab\tbir new line\nbir hesap \* işaretiyle \#{2*3} ve bir metod çağrısı \#{ob.ten}* )
+      
+      # tek tırnaklı # ile
+      puts( %q#Benim adım  \\\#{ob.name} ve numaram \\\#{ob.number}# )
+
+      # köşeli parantez [ ve ] kullanımı
+      puts( %Q[Bu bir tab\tbir new line\nbir hesap \#{2*3} ve bir metod çağrısı \#{ob.ten}] )
+    %br
+    
+    %p
+      Yukarıdaki uygulamada birçok kullanıcı tanımlı string sınırlayıcı örneği 
+      görebilirsiniz. Herhalde new line gibi görünmez ya da * gibi kafa 
+      karıştıracak karakterleri kullanmanın kafa karıştıracağını söylemeye 
+      gerek yok.
+      
+    %h3 Ters Tırnaklar
+    %p
+      Bir diğer string türü ters tırnaklarla sınırlanmış stringlerdir. Ruby ters tırnaklar 
+      ile çevrili stringi eğer 
+      %b print 
+      veya 
+      %b puts 
+      metoduyla alırsa işletim sistemine bir kod olarak algılar. Şimdi Ruby'nin bunu 
+      değişik yollarla yaptığını tahmin edebilirsiniz. 
+      %b %x/birkomut/ 
+      ile 
+      %b `birkomut` 
+      ve 
+      %b %x{birkomut} 
+      aynı işi yaparlar. Windows işletim sisteminde örneğin , aşağıdaki satırlar 
+      işletim sistemine 
+      %b dir 
+      komutu gönderirler:
+    %br
+    
+    :coderay
+      #!Ruby
+      puts(`dir`)
+      puts(%x/dir/)
+      puts(%x{dir})
+    %br
+    
+    %h4.sag 4backquotes.rb
+    :coderay
+      #!Ruby
+      
+      puts( `dir` )
+      puts( 'Press Enter')
+      gets()
+      puts( %x/dir/ )
+      puts( 'Press Enter')
+      gets()
+      puts( %x/echo "hello world"/ )
+      puts( 'Press Enter')
+      gets()
+      puts( %x{notepad} )
+      puts( 'Press Enter')
+      gets()
+      print( "Goodbye #{%x{calc}}" )
+    %br
+    
+    
+
     
     49
     %h3 Devam Edecek...
