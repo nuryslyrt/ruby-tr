@@ -296,10 +296,88 @@
       print( "Goodbye \#{%x{calc}}" )
     %br
     
+    %p Ayrıca şu şekilde çift tırnak içindeki stringden komut gönderilebilir:
+    %br
     
+    :coderay
+      #!Ruby
+      print( "Goodbye \#{%x{calc}}" )
+    %br
+    
+    %p
+      Bunu yaparken dikkat edin , önce komut işletilir. Ruby programınız komut 
+      bitene kadar bekleyecektir. Buradaki örnekte önce hesap makinası açılacak 
+      ne zaman uygulama penceresini kapatırsınız, o zaman "Goodbye" yazısı 
+      yazılacaktır.
+    %br
+    
+    %h3 Stringleri İşlemek
+    %p
+      String konusunu kapatmadan önce, birkaç çok kullanılan string işlevlerine 
+      hızlıca bakalım.
+    %h4 BİRLEŞTİRMEK (CONCAT) 
+    %h4.sag string_concat.rb
+    :coderay
+      #!Ruby
+      # String birleştirmek
+      
+      # << string birleştirme metodu << FixNum tam sayıları (fakat floatlar değil) stringe çevirir
+      # geçerli Fixnum'lar 0 dan 255'e kadardır
+      s1 = "Burada " << "bir" << " string var " << 10   # 10.5 gibi bir float ya da 256 sayısı deneyin
+      
+      # + metodu stringleri birleştirir ama tamsayıları çevirmez
+      s2 = "This "  + "is" + " a string "  + 10.to_s    # tamsayı metodla döndürülmüş
+      
+      # bir boşlukla da stringler birleştirilebilir
+      s3 = "This "  "is"  " a string "  + 10.to_s
+      
+      # virgülle ayrılmış stringler bir array oluşturur. 
+      # Array'ler daha anlaşılır olsun diye köşeli parantez içine konur :
+      # s4 = ["Bu " , "bir" , " string değil!", 10]
+      x = "Bu " , "bir" , " string değil!", 10
+      
+      puts("puts(s1):" << s1)
+      puts("puts(s2):" << s2)
+      puts("puts(s3):" << s3)
+      print("print (x):" , x, "\n")
+      puts("puts(x):", x)
+      puts("puts x.class is: " << (x.class).to_s )
+    %br
+    
+    %p
+      Stringleri 
+      %b << 
+      veya 
+      %b + 
+      ile ya da  sadece  aralarına bir boşluk koyarak birleştirebilirsiniz. Burada 
+      "Hello World" stringinin oluşturulması için birleştirme örnekleri görülüyor:
+    %br
+    
+    :coderay
+      #!Ruby
+      s = "Hello " << "world"
+      s = "Hello " + "world"
+      s = "Hello "  "world"
+    %br
+    
+    %p
+      Unutmayın 
+      %b << 
+      metodunu kullanırken 0 - 255 arası tamsayıları stringe dönüştürmek gerekmez 
+      ama + metodu ya da boşluk karakteri ile birleştiriyorsanız 
+      %b to_s 
+      metodu ile sayıyı stringe dönüştürmelisiniz. 
+    %br
+    
+    .alert.alert-info
+      %b Virgüller Ne Oluyor?
+      %p
+        Bazen Ruby'de stringler ve diğer veri tiplerini ayırt etmek için virgül 
+        kullanıldığına tanık olursunuz. Bazı durumlarda bu virgüller string 
+        birleştirmek için kullanılabilir. 
 
     
-    49
+    50
     %h3 Devam Edecek...
     %hr
     %a.btn.btn-large.btn-success.pull-left(href="/kitap/2")
