@@ -374,8 +374,83 @@
       %p
         Bazen Ruby'de stringler ve diğer veri tiplerini ayırt etmek için virgül 
         kullanıldığına tanık olursunuz. Bazı durumlarda bu virgüller string 
-        birleştirmek için kullanılabilir. 
-
+        birleştirmek için kullanılabilir. Örneğin aşağıdaki kod ilk bakışta alt 
+        stringlerden bir string oluşturup gösterecek ve üç altstring ve bir tamsayı 
+        gösterecek gibi görünüyor.
+      %br
+      
+      :coderay
+        #!Ruby
+        s4 = "This " , "is" , " not a string!", 10
+        print("print (s4):" , s4, "\n") 
+      %br
+      
+      %p
+        Gerçekte virgüllerle ayrılmış bir liste array oluşturur - stringlerin sıralanmış bir 
+        listesi. 
+        %b string_concat.rb 
+        programı bunu gösteren örneklere sahip. 
+      %p
+        Bir array elemanlarını 
+        %b puts 
+        gibi metodlara gönderirseniz her elemanı ayrı işleyecektir. Yukarıdaki 
+        array 
+        %b puts 
+        komutuna gönderilirse :
+      %br
+      
+      :coderay
+        #!Ruby
+        puts(s4)
+      %br
+      
+      %p Bu durumda çıktı şöyle olacaktır:
+      %br
+      
+      :coderay
+        #!Bash
+        This 
+        is
+         not a string!
+        10 
+      %br
+      
+      %p Array yapılarını sonraki bölümde ayrıntılı inceleyeceğiz.
+    %br
+    
+    %h3 String Atamalar
+    %p
+      Ruby String sınıfı birçok kullanışlı string işleme metoduna sahiptir. Bu 
+      metodların bir çoğu yeni bir string nesnesi üretir. Bu yüzden örneğin, 
+      aşağıdaki kodda sol taraftaki 
+      %b s 
+      ile eşitliğin sağ tarafındaki 
+      %b s 
+      aynı nesne değildir:
+    %br
+    
+    :coderay
+      #!Ruby
+      s = "hello world"
+      s = s + "!"
+    %br
+    
+    %h4.sag string_assign.rb
+    :coderay
+      #!Ruby
+      s = "hello world"
+      print( "s='\#{s}' ve s.object_id=\#{s.object_id}\n" )
+      s = s + "!"	  # bir yeni string üretildi bu yüzden buradaki 
+                        # iki s değişkeni farklı nesneler
+      print( "s='\#{s}' ve s.object_id=\#{s.object_id}\n" )
+      s = s.capitalize	# bu yeni bir string object üretir
+      print( "s='\#{s}' ve s.object_id=\#{s.object_id}\n" )
+      s.capitalize!		# ama bu mevcut nesneyi modifye eder
+      print( "s='\#{s}' ve s.object_id=\#{s.object_id}\n" )
+      s[1] = 'A'			# Bu da mevcutu modifye eder
+      print( "s='\#{s}' ve s.object_id=\#{s.object_id}\n" )
+      print( " s stringinin ilk karakteri, s[0,1],  '\#{s[0,1].to_s}' ve son karakteri [s-1,1]  \#{s[-1,1].to_s}" )
+    
     
     50
     %h3 Devam Edecek...
