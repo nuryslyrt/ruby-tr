@@ -3,6 +3,11 @@
 %div.row
   %div.leaderboard
     %h1 Bölüm 3 
+    %h4 
+      Yazar : 
+      %a(href="http://twitter.com/#!/huwcol" target="_blank") Huw Collingbourne
+      \- 
+      %a(href="http://www.sapphiresteel.com/" target="_blank") www.sapphiresteel.com
     %h4 Çeviren : Ümit Kayacık
 
 %br
@@ -450,10 +455,174 @@
       s[1] = 'A'			# Bu da mevcutu modifye eder
       print( "s='\#{s}' ve s.object_id=\#{s.object_id}\n" )
       print( " s stringinin ilk karakteri, s[0,1],  '\#{s[0,1].to_s}' ve son karakteri [s-1,1]  \#{s[-1,1].to_s}" )
+    %br
     
+    %p
+      Birkaç string metodu nesneyi değiştirmeden kendisini modifiye eder. Bu 
+      metodlar genellikle bir ünlem işareti ile biterler. ( 
+      %b capitalize! 
+      metodunda olduğu gibi).
+    %p
+      Şüpheniz varsa nesnenin aynı olup olmadığını id'sinden 
+      %b object_id 
+      metoduyla kontrol edebilirsiniz. 
+      %b string_assign.rb 
+      programında yeni string nesnesi üretmeyen birkaç metod gösterdim. 
+      Bu programı çalıştırın ve her işlem sonrası 
+      %b object_id 
+      ile string nesnesinin aynı kalıp kalmadığını kontrol edin.
+    %br
     
-    50
+    %h3 BİR STRING İÇİNDE GEZİNMEK
+    %p
+      Bir string'i karakterlerden oluşan bir array gibi görerek herhangi bir 
+      sıradaki karaktere adının arkasına köşeli parantez içinde sıra sayısını 
+      yazarak ulaşabilirsiniz. Ruby stringleri index (gösterge) 0 dan başlayarak 
+      adreslenebilir. Bu yüzden mesela içinde 'Hello World' olan 
+      %b s 
+      stringi '1' nolu indexindeki karakteri (e) 'a' yapmak istersek:
+    %br
+    
+    :coderay
+      #!Ruby
+      s[1] = 'a'
+    %br
+    
+    %p
+      Eğer string'in bir yerindeki karakteri bulmak istiyorsanız :
+    %br
+    
+    :coderay
+      #!Ruby
+      s = "Hello world"
+      puts( s[1] )   
+    %br
+    
+    %p
+      Eğer pozisyon 1'den itibaren 3 karakteri almak isterseniz:
+    %br
+    
+    :coderay
+      #!Ruby
+      puts( s[1,3] )  # 'ell' yazar
+    %br
+    
+    %p
+      Bu Ruby'ye 1 nolu pozisyondan başlayarak 3 karakteri almasını söyler. 
+      Alternatif olarak iki noktalı range notasyonu da kullanabilirsiniz:
+    %br
+    
+    :coderay
+      #!Ruby
+      puts( s[0..3] )  # 'Hell' yazar
+    %br
+    
+    .alert.alert-info
+      Range hakkında daha fazla bilgi için bölüm sonundaki 
+      %b Derin İnceleme 
+      kısmına bakın
+    %p
+      String'ler ayrıca eksi değerlerle de indexlenebilir. -1 değeri son 
+      karakteri verir ve 'd' döner:
+    %br
+    
+    :coderay
+      #!Ruby
+      puts( s[-1,1] )  # prints „d‟
+      puts( s[-5,1] )  # prints „w‟
+      puts( s[-5,5] )  # prints „world‟
+    %br
+    
+    %h4.sag string_index.rb
+    :coderay
+      #!Ruby
+      s = "Hello world"
+      puts( "s=#'{s}'" )
+      puts( "s[0]=\#{s[0]}, s[0,1]='\#{s[0,1]}', s[-1]=\#{s[-1]}, s[-1,1]='\#{s[-1,1]}'" )
+      puts( "s[0,5]='\#{s[0,5]}' and s[-5,5]='\#{s[-5,5]}'" )
+      puts( "s[0..5]='\#{s[0..5]}' and s[-5..-1]='\#{s[-5..-1]}'" )
+    %br
+    
+    %p
+      Range içinde eksi değer kullanılacaksa rang'in hem başlangıç hem bitiş 
+      değerleri her ikisi de eksi değer olmalıdır:
+    %br
+    
+    :coderay
+      #!Ruby
+      puts( s[-5..5] )  # bu boş bir string döner!
+      puts( s[-5..-1] )  # bu 'world' yazar
+    %br
+    
+    %p
+      Son olarak stringleri işlemek için bazı standart fonksiyonlar ile deneme 
+      yapmak isteyebilirsiniz. Bu metodlar string üzerinde harfleri büyültüp küçültür, 
+      ters çevirir, tekrarlayan karakterleri uzaklaştırır vb. Bunların bir kısmı 
+      %b string_methods.rb 
+      programında toplanmıştır.
+      
+    %h4.sag string_methods.rb
+    :coderay
+      #!Ruby
+      # birkaç string metod örneği 
+      
+      s = "Now is the winter of our discontent
+      Made glorious summer by this sun of York;
+      And all the clouds that     lour'd upon our house
+      In the deep bosom of the ocean buried."
+      
+      puts( '--- s ---' )
+      puts(s)
+      
+      puts( '--- s.length ---' )
+      puts(s.length)
+      
+      puts( '--- s.reverse! ---' )	# noti ! ile biten metod s'in kendisini değiştirir
+      puts(s.reverse!)
+      
+      puts( '--- s.reverse ---' )		# yeni bir s string nesnesi üretir
+      s = s.reverse
+      puts(s)
+      
+      puts( '--- s.upcase ---' )
+      s = s.upcase
+      puts(s)
+      
+      puts( '--- s.capitalize ---' )	# ilk karakterler büyük gerisi küçük harf
+      s = s.capitalize
+      puts(s)
+      
+      puts( '--- s.swapcase ---' )
+      s = s.swapcase
+      puts(s)
+      
+      puts( '--- s.downcase ---' )
+      s = s.downcase
+      puts(s)
+      
+      puts( '--- s.insert(7, "NOT " ) ---' ) # index'in oraya string sokuştur
+      s = s.insert(7, "NOT " )
+      puts(s)
+      
+      puts( '--- s.squeeze ---' ) # tekrarlayan karakterleri uzaklaştır -örn. "xx   yy" iken "x y" olur
+      s = s.squeeze
+      puts(s)
+      
+      puts( '--- s.split ---' )	# kelimelerinden bir array üret
+      s = s.split
+      puts(s)
+    %br
+    %hr
+    
+    %h3 NEWLINE KARAKTERLERİNİN UZAKLAŞTIRILMASI - CHOP ve CHOMP
+    %p
+      
+    
+    54
     %h3 Devam Edecek...
+    
+    %p.orta Copyright © 2009 Huw Collingbourne
+    
     %hr
     %a.btn.btn-large.btn-success.pull-left(href="/kitap/2")
       %i.icon-backward.icon-white

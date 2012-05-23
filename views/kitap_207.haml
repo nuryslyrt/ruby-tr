@@ -20,7 +20,188 @@
     = haml :gs_sidebar
 %div.row
   %div.span12
+    %hr
     %p
+      App kendisi bir penceredir. İçi temizlenebilir, doldurulabilir, kapatılabilir. 
+    %br
+    
+    %img.displayed(src="/sample46.png") 
+    %br
+    
+    %p
+      App nesnesi slot/box terminolojisinde flow'dur. Daha fazlası için 
+      %i Slots 
+      kısmına bakabilirsiniz, ancak şunu bilin App içine bişey belirtilmeden
+      yerleştirilen nesneler flow içine yerleştirilmiş gibi yerleşecektir.
+    %br
+    
+    %a(name="shoes.app")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#shoes.app" style="width: 100%;") 
+        %big 
+          %b Shoes.app(styles) { ... } 
+        » Shoes::App
+    %br
+    
+    %p
+      Bu komut yeni bir Green Shoes penceresi başlatır. Bu bir Green Shoes 
+      programının başlangıç noktasıdır. Blok içinde pencereyi değişik Green 
+      Shoes elemanlarıyla doldurursunuz (butonlar, çizimler, vs.) ve blok dışında 
+      %b styles 
+      kullanarak pencerenin boyutlarını belirlersiniz. Belki de uygulamaya bir 
+      etiket verirsiniz.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app title: "Beyaz Daire",
+        width: 200, height: 200 do
+        background black
+        fill white
+        oval top: 20, left: 20, radius: 160
+      end
+    %br
+    
+    %p
+      Yukardaki durumda 200 piksele 200 piksel küçük bir pencere üretilecek. 
+      Pencere içinde iki eleman olacak: siyah bir arkaplan ve beyaz bir daire.
+    %p
+      Bir app üretildiğinde 
+      %a(href="#Shoes.APPS") Shoes.APPS 
+      listesine eklenir. Bir app'nin başka pencereler yumurtlamasını isterseniz 
+      %a(href="/kitap/213#window") window 
+      ve 
+      %a(href="/kitap/213#dialog") dialog 
+      metodlarına bakın.
+    %br
+    
+    %a(name="Shoes.APPS")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#Shoes.APPS" style="width: 100%;") 
+        %big 
+          %b Shoes.APPS() 
+        » An array of Shoes::App objects
+    %br
+    
+    %p
+      Şu anda açık olan tüm Green Shoes pencerelerinin bir listesini verir. Bir 
+      app kapatılınca listeden çıkarılır. Evet birçok app aynı anda çalıştırabilirsiniz 
+      Green Shoes bunu destekler.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        button('Yeni bir app aç'){Shoes.app{}}
+        button('Print Shoes.APPS'){p Shoes.APPS}
+      end
+    %br
+    
+    %a(name="clipboard")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#clipboard" style="width: 100%;") 
+        %big 
+          %b clipboard() 
+        » a string
+    %br
+    
+    %p
+      System clipboard'a kopyalanan tüm text'i içeren bir string döner. Bu 
+      sistemde çalışan tüm programların kopyaladığı bilgilerin toplandığı global 
+      clipboard'dır. 
+    %br
+    
+    %a(name="clipboard=")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#clipboard=" style="width: 100%;") 
+        %big 
+          %b clipboard = a string
+    %br
+    
+    %p
+      Belirtilen 
+      %b string'i 
+      sistemin clipboard'ına koyar.
+    %br
+    
+    %a(name="close")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#close" style="width: 100%;") 
+        %big 
+          %b close()
+    %br
+    
+    %p
+      App penceresini kapatır. Eğer birçok pencere açık ve sadece içinde 
+      bulunduğunuzu değil hepsini kapatmak isterseniz 
+      %b exit 
+      metodunu kullanın.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        para 'merhaba'
+        button 'yavrula' do
+          Shoes.app do
+            para 'merhaba'
+            button('close: sadece bu pencereyi kapat'){close}
+            button('exit: Green Shoesdan Çık'){exit}
+          end
+        end
+        button('close: sadece bu pencereyi kapat'){close}
+        button('exit: Green Shoesdan Çık'){exit}
+      end
+    %br
+    
+    %a(name="download")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#download" style="width: 100%;") 
+        %big 
+          %b download(url: a string, styles)
+    %br
+    
+    %p
+      Bir download işlemi başlatır (JavaScript biliyorsanız XMLHttpRequest 
+      benzeri) Bu metod çağrıldığı anda arkaplanda download işini başlatır ve 
+      program sonraki satıra devam eder. Her download işlemi aynı zamanda 
+      %b start , progress 
+      ve 
+      %b finish 
+      olaylarını tetikler. Bir download sonucunu bir dosyaya kaydedebilir ya da 
+      bir stringe alabilirsiniz (
+      %b finish 
+      olayı içinde). 
+    %p
+      Eğer download'a bir blok bağlarsanız. 
+      %b finish olayını çağıracaktır.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        stack do
+          title "Searching Google", size: 16
+          @status = para "One moment..."
+          download "http://is.gd/bXTVY7" do |goog|
+            @status.text = "Date: \#{goog.meta["date"]}"
+          end
+        end
+      end
+    %br
+    
     
 
     %h3 Devam Edecek...
