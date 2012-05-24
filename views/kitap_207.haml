@@ -202,9 +202,179 @@
       end
     %br
     
+    %p
+      Bu örnek 
+      %b download 
+      kullanımının en basit örneklerinden. Web'den bir kısım veriyi hafızaya 
+      indiriyor ve tamamlandığında işliyor.
+    %p
+      %b download 
+      kullanımının bir diğer basit şekli de web verisini 
+      %b :save 
+      stilini kullanarak bir dosyaya kaydetmek.
+    %br
     
-
-    %h3 Devam Edecek...
+    :coderay
+      #!Ruby
+      Shoes.app do
+        stack do
+          title "Downloading Google image", size: 16
+          @status = para "One moment..."
+          download "http://is.gd/GVAGF7",
+            :save => "nasa50th.gif" do
+              @status.text = "Okay, is downloaded."
+              image "nasa50th.gif", top: 100
+          end
+        end
+      end
+    %br
+    
+    %p
+      Eğer web server üzerinde action'ları yönetmek istiyorsanız, HTTP 
+      request'inizi şekillendirmek için 
+      %b :method, :headers 
+      ve 
+      %b :body 
+      stillerini kullanabilirsiniz. (Bundan daha da ileri gitmek isterseniz Ruby'nin 
+      OpenURI sınıfını kullanabilirsiniz)
+    %br
+    
+    :coderay
+      #!Ruby
+      #Bu henüz çalışmıyor 
+      
+      Shoes.app do
+        stack do
+          title "GET Google", size: 16
+          @status = para "One moment..."
+          download "http://is.gd/bXTVY7", 
+              :method => "GET" do |dump|
+            @status.text = dump.response.body
+          end
+        end
+      end
+    %br
+    
+    %p
+      %b Not: 
+      Green Shoes henüz 
+      %b :method, :headers 
+      ve 
+      %b :body 
+      stilleri desteklenmemektedir.
+    %br
+    
+    :coderay
+      #!Ruby
+      require "Hpricot"
+      Shoes.app do
+        status = para "One moment..."
+        download 'http://is.gd/BatiRt' do |dl|
+          samples = []
+          Hpricot(dl).inner_text.each_line do |line|
+            samples.push($1) if line =~ /(sample.*\.rb)/
+          end
+          status.text = samples.join(', ')
+          flush
+        end
+      end
+    %br
+    
+    %a(name="location")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#location" style="width: 100%;") 
+        %big 
+          %b location() 
+        » a string
+    %br
+    
+    %p İçinde bulunulan app'nin URL'ini içeren bir string döner.
+    %br
+    
+    %a(name="mouse")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#mouse" style="width: 100%;") 
+        %big 
+          %b mouse() 
+        » an array of numbers: button, left, top
+    %br
+    
+    %p
+      Mouse cursor yerini ve basılan butonun numarasını verir.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        @p = para
+        animate do
+          button, left, top = self.mouse
+          @p.replace "mouse: \#{button}, \#{left}, \#{top}"
+        end
+      end
+    %br
+    
+    %a(name="owner")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#owner" style="width: 100%;") 
+        %big 
+          %b owner() 
+        » Shoes::App
+    %br
+    
+    %p
+      Bu app'yi üreten app'yi verir. Tek pencereli uygulamada genelde bu 
+      değer 
+      %b nil 
+      olur. Fakat eğer app 
+      %a(href="/kitap/213#window") window 
+      metodu kullanılarak üretildiyse owner 
+      %b window'
+      u çağıran app olacaktır.
+    %br
+    
+    %a(name="started?")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#started?" style="width: 100%;") 
+        %big 
+          %b started?() 
+        » true or false
+    %br
+    
+    %p
+      Pencere tamamıyla üretilip gösterimi tamamlandı mı? Bu pencere 
+      tamamen kurulmadan çalışınca sıkıntı çıkarabilecek kodlarda faydalıdır.
+      ( Ayrıca pencere ilk açıldığında bir kezliğine çalışan 
+      %b start 
+      olayına da bakın). 
+    %p
+      %b Not: 
+      Green Shoes henüz started? metodunu desteklemiyor.
+    %br
+    
+    %a(name="visit")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#visit" style="width: 100%;") 
+        %big 
+          %b visit(url: a string)
+    %br
+    
+    %p
+      Farklı bir Shoes URL'yi göstermek için adresi değiştirir.
+    %p
+      Mutlak URL'ler düşünülebilir (mesela http://google.com) , fakat Green 
+      Shoes bu adreste bir Green Shoes uygulaması olmasını bekler. ( yani 
+      google.com bir HTML app olduğundan çalışmayacaktır)
 
     %hr
     %a.btn.btn-large.btn-success.pull-left(href="/kitap/206")

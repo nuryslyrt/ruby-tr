@@ -1,0 +1,44 @@
+-# coding: UTF-8
+
+
+%div.row
+  %div.span10
+    %h1 Stiller Ana Liste
+    %h3
+      You want to mess with 
+    %hr
+    %h4 Çeviren : Ümit Kayacık
+  %div.span2
+    %form.form-search(action='/k_search' method='GET')
+      %input(type="hidden" name="start" value="201")
+      %input(type="hidden" name="end" value="238")
+      %input.search-query(type="text" name="search_str" style="width: 70px;" placeholder="Ara")
+      %button.btn(type="submit")
+        %i.icon-search
+    = haml :gs_sidebar
+%div.row
+  %div.span12
+    %hr
+    %p
+    
+    %a(name="shoes.app")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#shoes.app" style="width: 100%;") 
+        %big 
+          %b Shoes.app(styles) { ... } 
+        » Shoes::App
+    %br
+    
+    %p
+
+    %h3 Devam Edecek...
+
+    %hr
+    %a.btn.btn-large.btn-success.pull-left(href="/kitap/206")
+      %i.icon-backward.icon-white 
+      Dahili Metodlar
+    %a.btn.btn-large.btn-success.pull-right(href="/kitap/208")
+      Stiller
+      %i.icon-forward.icon-white
