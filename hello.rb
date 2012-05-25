@@ -16,6 +16,10 @@ get "/k_search" do
   haml :k_search
 end
 
+get "/email/:name" do |isim|
+  haml :email, :locals => {:isim => isim}
+end
+
 get "/:sayfa" do |s|
   haml :"#{s}"
 end
