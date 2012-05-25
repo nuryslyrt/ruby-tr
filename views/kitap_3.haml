@@ -616,7 +616,159 @@
     
     %h3 NEWLINE KARAKTERLERİNİN UZAKLAŞTIRILMASI - CHOP ve CHOMP
     %p
+      Birkaç kullanışlı string işleme metodu özel övgüyü hakediyor. 
+      %b chop 
+      ve 
+      %b chomp 
+      metodları bir string sonundan bazı karakterleri uzaklaştırmak için 
+      kullanılabilir. 
+      %b chop 
+      metodu string'in eğer sonunda carriage return ve newline ("\r\n") varsa 
+      onu yoksa son karakteri uzaklaştırarak gerisini döner. 
+      %b chomp 
+      metodu sadece carriage return veya newline karakterlerini uzaklaştırır. 
+      (her ikisi varsa ikisi de uzaklaştırılır)
+    %p
+      Bu metodlar kullanıcının girdiği ya da dosyadan okunan bir metinden 
+      linefeed'leri uzaklaştırmak için kullanılır. Mesela, kullanıcıdan 
+      %b gets 
+      ile bir satır yazı girmesini istediğinizde, girilen string sonuna newline 
+      karakteri eklenerek gelir(record separator).
+    %br
+    
+    .alert.alert-info
+      %p
+        %b Record Separator - $/
+      %p
+        Ruby'nin ön tanımlı bir değişkeni vardır , 
+        %b $/ 
+        , "record separator". Bu değişken 
+        %b gets 
+        ve 
+        %b chomp 
+        gibi metodlar tarafından kullanılır. 
+        %b gets 
+        metodu record separator karakteri gelene kadarki stringi alır. 
+        %b chomp 
+        metodu sonundan record separator uzaklaştırılmış bir string döner, 
+        eğer yoksa stringi değiştirmeden geri döner. İsterseni record separator'ü 
+        şöyle değiştirebilirsiniz:
+      %br
       
+      :coderay
+        #!Ruby
+        $/="*"  # “*” karakteri şimdi record separator oldu
+      %br
+      
+      %p
+        Record separator'ü değiştirdiğinizde bu yeni karakter (veya string) 
+        burdan sonra 
+        %b gets 
+        ve 
+        %b chomp 
+        gibi metodlar tarafından kullanılır. Örneğin:
+      %br
+      
+      :coderay
+        #!Ruby
+        $/= "world"  
+        s = gets()  # kullanıcı “Had we but world enough and time…” girse
+        puts( s )  #  “Had we but world” gösterir
+    %br
+      
+    %p
+      newline karakterini uzaklaştırmak için 
+      %b chop 
+      ya da 
+      %b chomp 
+      kullanabilirsiniz. Birçok durumda 
+      %b chomp 
+      tercih edilebilir çünkü sadece varsa newline uzaklaştırılır. Ama 
+      %b chop 
+      eğer newline yoksa sondaki karakteri uzaklaştırır. İşte bazı örnekler:
+    %br
+    
+    %h4.sag chop_chomp.rb
+    :coderay
+      #!Ruby
+      # The Book of Ruby - http://www.sapphiresteel.com
+      
+      # s1 içinde carriage return\linefeed var
+      s1 = "Hello world
+      "
+      s2 = "Hello world"
+      
+      puts( "s1='\#{s1}'")
+      
+      # chop s1'den cr\linefeed uzaklaştırır
+      puts( '\#{s1.chop}' )
+      puts( "'\#{s1.chop}'" )
+      
+      # chomp s1'den cr\linefeed uzaklaştırır
+      puts( '\#{s1.chomp}' )
+      puts( "'\#{s1.chomp}'" )
+      
+      
+      puts( "\ns2 ='\#{s2}'" )
+      
+      # s2'de  cr\linefeed yok - chop her halikarda son karakteri uçurur!
+      puts( '\#{s2.chop}' )
+      puts( "'\#{s2.chop}'" )
+      
+      # fakat chomp stringi değişmeden döndürür
+      puts( '\#{s2.chomp}' )
+      puts( "'\#{s2.chomp}'" )
+      
+      # bu başka bir separator olarak 'rld' belirler ve bunu kullanır
+      puts( '\#{s2.chomp(\'rld\')}' )
+      puts( "'\#{s2.chomp('rld')}'" )
+      
+      puts( "\nEnter some text..." )
+      print( "> " )
+      s = gets()
+      puts( "Girdiğiniz text:" )
+      puts( "'\#{s}'" )
+      puts( "Şimdi chomp kullanalım:" )
+      puts( "'\#{s.chomp}'" )	# cr\linefeed uzaklaştırılır
+      
+      $/="world"				# record separator değişir
+      puts( "\$/ şimdi \#{$/}, şimdi chomp \#{s2}" )
+      puts( "'\#{s2.chomp}'")
+      
+      puts( "\$/ ayrıca gets() tarafından kullanılır" )
+      puts( "Bu stringi girerek deneyin: ")
+      puts ( "Hello world, Goodbye" )
+      print( "> " )
+      s = gets()
+      puts( "Girdiğiniz:" )
+      puts( "'\#{s}'" )
+    %br
+    
+    %h3 Stringleri Şekillendirmek - Format
+    %p
+      Ruby yüzde işareti 
+      %b % 
+      başlayan belirteçler ile stringleri şekillendiren 
+      %b printf 
+      metoduna sahiptir. Formatlanan string virgülle ayrılmış olarak bir yada 
+      birden çok veri elemanı tarafından takip edilir. Veri elemanlarının sayısı 
+      format belirteçlerini sayısı kadar olamalıdır. Aktif veri elemanları karşılık 
+      gelen format belirteçleri ile yer değişir . Bunlar bazı çok kullanılan 
+      format belirteçleri :
+    %br
+    
+    :coderay
+      #!Bash
+      %d – Ondalık (desimal) sayı
+      %f – kayan noktalı (floating point) sayı
+      %o – Sekizlik (octal) sayı
+      %p – inspect object
+      %s – string
+      %x – Onaltılı (hexadecimal) sayı
+    %br
+    
+    
+
     
     54
     %h3 Devam Edecek...
