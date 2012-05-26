@@ -767,11 +767,191 @@
       %x – Onaltılı (hexadecimal) sayı
     %br
     
+    %p
+      Noktalı sayıların gösteriminde noktadan sonraki gösterimi 
+      %b %f 
+      belirtecinin önüne sayı yazarak belirtirsiniz. Örneğin bu iki dijit bir 
+      noktalı sayı gösterir:
+    %br
     
-
+    :coderay
+      #!Ruby
+      printf( "%0.02f", 10.12945 )  # displays 10.13
+    %br
     
-    54
-    %h3 Devam Edecek...
+    %hr
+    %h2 Derin İnceleme
+    %br
+    %h3 Range'ler
+    %p
+      Ruby'de bir Range başlangıç ve bitiş değerleri belirtilen bir dizi değeri 
+      belirten bir sınıftır. Genel olarak tamsayılar için kullanılır ama isterseniz 
+      Range'i karakterler ya da noktalı sayılar için de kullanabilirisiniz. Değerler 
+      negatif de olabilir ama başlangıç değerin bitiş değerden daha küçük 
+      olmasına dikkat edin!
+    %br
+    
+    %h4.sag ranges.rb
+    :coderay
+      #!Ruby
+      # The Book of Ruby - http://www.sapphiresteel.com
+      
+      a = (1..10)
+      b = (-10..-1)
+      c = (-10..10)
+      d = ('a'..'z')		 # iki nokta = array - 'a'..'z'
+      e = ('a'...'z')		# üç nokta = array - 'a'..'y'
+      f = (1.4..2.5 )		# kayan noktalı range
+      
+      puts(a)
+      puts(b)
+      puts(c)
+      puts(d)
+      puts(e)
+      puts(f)
+      print(c.to_a)
+      puts
+      print(d.to_a)
+      puts
+      print(e.to_a)
+      # Kayan noktalı sayı range'i array yapamazsınız 
+      # toplam değer sayısı belirsizdir
+      # print(f.to_a) # bu kod çalışmaz!
+    %br
+    
+    %p
+      Range ifade ederken iki nokta yerine üç nokta kullanırsanız bitiş değeri 
+      olarak verdiğiniz değer listeye alınmaz. Range'i oluşturan değerlerden 
+      bir array elde etmek için 
+      %b to_a 
+      metodunu kullanabilirsiniz:
+    %br
+    
+    :coderay
+      #!Ruby
+      (1..10).to_a
+    %br
+    
+    %p
+      Dikkat ederseniz 
+      %b to_a 
+      metodu kayan noktalı sayılarda range içindeki değerler sınırsız olduğu için 
+      kullanılamaz. 
+    %br
+    
+    %h4.sag str_range.rb
+    :coderay
+      #!Ruby
+      # The Book of Ruby - http://www.sapphiresteel.com
+      
+      str_range = ('abc'..'def')
+      puts( str_range.to_a )
+      puts( (str_range.to_a).length )
+    %br
+    
+    %p
+      Stringlerden bile range yapabilirsiniz, ancak dikkatli olun beklemediğiniz sonuçlar 
+      alabilirsiniz. Örneğin aşağıdaki range'in alacağı değerleri tahmin edin:
+    %br
+    
+    :coderay
+      #!Ruby
+      str_range = ('abc'..'def')
+    %br
+    
+    %p
+      İlk bakışta "abc" den "def" ye olan bir range fazla elemana sahip olamaz 
+      gibi gelebilir. Gerçekte 2110 tane değer alabilir. "abc" , "abd" , "abe" diye 
+      sıra sıra değerler alır. Bu durumda şunu söylemek doğru olacaktır, ya bu tip 
+      range'leri doğru kullanın ya da iyisimi hiç kullanmayın.
+    %br
+    
+    %h3 BİR RANGE ÜZERİNDE İTERASYON
+    %p
+      Bir range'i başlangıç değerinden bitiş değerine kadar tüm değerlerle 
+      iterasyon yapabilirsiniz. Burada 1'den 10'a kadar sayıları yazan bir kod 
+      var:
+    %br
+    
+    %h4.sag for_to.rb
+    :coderay
+      #!Ruby
+      # The Book of Ruby - http://www.sapphiresteel.com
+      
+      for i in (1..10) do
+        puts( i )
+      end
+    %br
+    
+    %h3 HEREDOC
+    %p
+      Bir çok satırdan oluşan uzun stringler yazacağı zaman çoğu Ruby 
+      programcısı tırnaklar yerine alternatif bir yol olan 'heredoc' string 
+      kullanırlar. Bir heredoc başında ve sonunda sınırlayıcı marker'ları bulunan 
+      bir yazıdır. Burada EODOC kelimesini sonlandırıcı marker olarak seçtim:
+    %br
+    
+    %h4.sag heredoc.rb
+    :coderay
+      #!Ruby
+      # The Book of Ruby - http://www.sapphiresteel.com
+      
+      # "çift tırnak" heredoc
+      hdoc1 = <<EODOC
+      I wandered lonely as a \#{"cloud".upcase},
+      That floats on high o'er vale and hill...
+      EODOC
+      
+      # 'tek tırnak' heredoc
+      hdoc2 = <<'EODOC'
+      I wandered lonely as a \#{"cloud".upcase},
+      That floats on high o'er vale and hill...
+      EODOC
+      
+      # girintili sonlandırıcılı heredoc
+      hdoc3 = <<-EODOC
+      I wandered lonely as a \#{"cloud".upcase},
+      That floats on high o'er vale and hill...
+        EODOC
+      
+      # ayrılmış kelimeden sonlandırıcılı heredoc
+      hdoc4 = <<def
+      I wandered lonely as a \#{"cloud".upcase},
+      That floats on high o'er vale and hill...
+      def
+      
+      
+      def printout( doc )
+        puts( "'\#{doc}'" )
+      end
+      
+      def printout2( doc )
+        puts( "'\#{doc.chomp}'" )
+      end
+      
+      printout( hdoc1 )
+      printout( hdoc2 )
+      printout( hdoc3 )
+      printout( hdoc4 )
+      
+      printout2( hdoc4 )
+    %br
+    
+    %p
+      Default olarak heredoc'lar çift tırnak olarak kabul edilir. Bu yüzden içlerinde 
+      %b \#{"cloud".upcase} 
+      gibi yazımlar işletilir. Eğer bir heredoc'un tek tırnak olmasını istiyorsanız 
+      sonlandırıcı marker'ı tek tırnaklar içine alın:
+    %br
+    
+    :coderay
+      #!Ruby
+      hdoc2 = <<'EODOC'
+      I wandered lonely as a #{"cloud".upcase},
+      That floats on high o'er vale and hill...
+      EODOC 
+    %br
+    
     
     %p.orta Copyright © 2009 Huw Collingbourne
     
