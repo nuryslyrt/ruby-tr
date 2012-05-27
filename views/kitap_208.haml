@@ -5,7 +5,10 @@
   %div.span10
     %h1 Stiller Ana Liste
     %h3
-      You want to mess with 
+      Nesnelerin görünümleriyle uğraşmak ister misiniz? Peki, Green Shoes'da 
+      elemanların görünümünü stiller belirler. Bazı durumlarda da tüm bir sınıfı 
+      şekillendirmek istersiniz (Mesela tüm linkleri altı çizili yapmak gibi). 
+
     %hr
     %h4 Çeviren : Ümit Kayacık
   %div.span2
@@ -20,21 +23,165 @@
   %div.span12
     %hr
     %p
-      &nbsp;&nbsp;&nbsp;Paragraf başı 
-      %br
-      ikinci satır <span style="color: red;"> deneme </span>
+      Stilleri kolay farkedersiniz. Genellikle elemanın ilk üretildiğinde belirtilirler.
+    %br
     
-    %a(name="shoes.app")
+    :coderay
+      #!Ruby
+      Shoes.app title: "Bir stil örneği" do
+        para 'Green Shoes', align: 'center', size: 50
+      end
+    %br
+    
+    %p
+      Burada app nesnesinin 
+      %b :title 
+      stili var. Ve app içindeki paragraf nesnesinde de ortalamak için
+      %b :align 
+      ve yazının boyunu 50 yapmak için 
+      %b :size 
+      stilleri var. 
+    %p
+      Bundan başka her eleman ve slotta ter alan 
+      %a(href="/kitap/219#style") style 
+      metodu ile stillerin bulunduğu hash yapı değiştirilebilir.
+    %p
+      %b Not: 
+      Green Shoes henüz sadece Shape elemanının stil hash yapısını 
+      değiştirebilir.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app title: "Bir Stil Örneği" do
+        choose = 
+          lambda{[red, blue, green, yellow].sample}
+        s = star 100, 50, 30, 200, 180, strokewidth: 5
+        button 'change colors' do
+          s.style stroke: choose.call, fill: choose.call
+        end
+      end
+    %br
+    
+    %p
+      Birçok stiller ayrıca metod olarak da çağrılabilir. 
+    %p
+      %b Not: 
+      Green Shoes bunları metod olarak desteklemez. 
+    %br
+    
+    :coderay
+      #!Ruby
+      # Henüz mümkün değil
+      Shoes.app title: "Bir Stil Örneği" do
+        choose = 
+          lambda{[red, blue, green, yellow].sample}
+        s = star 100, 50, 30, 200, 180, strokewidth: 5
+        button 'change colors' do
+          s.stroke = choose.call; s.fill = choose.call
+        end
+      end
+    %br
+    
+    %p
+      Tüm Shoes manuali harmanlamak yerine bu sayfaya bakmak , hangi 
+      stiller olduğu ve nelerde kullanıldığı konusunda size çok yardımcı olacaktır.
+    %br
+    
+    %a(name=":align")
     %br
     %br
     %p
-      %a.btn.btn-inverse(href="#shoes.app" style="width: 100%;") 
+      %a.btn.btn-inverse(href="#:align" style="width: 100%;") 
         %big 
-          %b Shoes.app(styles) { ... } 
-        » Shoes::App
+          %b :align 
+        » a string
     %br
     
     %p
+      Ne için: 
+      %i banner, caption, incription, para, subtitle, tagline, title 
+    %p Yazının nerede olacağı. Seçenekler şunlar:
+    %ul
+      %li "left" - Yazı sol tarafa yaslanacak
+      %li "center" - Yazı ortalanır
+      %li "right" - Yazı sağa yaslanacak
+    %br
+    
+    %a(name=":angle")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:angle" style="width: 100%;") 
+        %big 
+          %b :angle 
+        » a number
+    %br
+    
+    %p
+      Ne için: 
+      %i background, border, line, oval, rect, shape, star
+    %p
+      Gradient renklendirmeye uygulanacak açı. Normalde gradient renkler 
+      yukarıdan aşağıya doğru gider. Eğer 
+      %b :angle 
+      90 olarak ayarlandıysa soldan sağa doğru olacaktır.
+    %br
+    
+    %a(name=":attach")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:attach" style="width: 100%;") 
+        %big 
+          %b :attach 
+        » a slot or element
+    %br
+    
+    %p
+      Ne için: 
+      %i flow, stack 
+    %p
+      Bir slotu diğer bir slot ya da elemana göre tutturur. 
+      %b :attach => Window 
+      yazarak slotu window'un sol üst köşesine tutturursunuz. Biraz daha 
+      gelişmiş şekli ise, 
+      %b :top => 10, :left => 10, :attach => Window 
+      slot'u window'un sol üstünden 10 piksel sağa ve 10 piksel aşağı 
+      tutturacaktır. 
+    %p
+      Eğer slotun bağlı olduğu eleman hareket ederse slot onunla beraber hareket 
+      eder. 
+    %p
+      %b Not: 
+      Green Shoes henüz 
+      %b :attach 
+      stilini desteklemez. 
+    %br
+    
+    %a(name=":autoplay")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:autoplay" style="width: 100%;") 
+        %big 
+          %b :autoplay 
+        » true or false
+    %br
+    
+    %p
+      Ne için: 
+      %i video
+    %p
+      Bağlı video görünmesinin ardından hemen oynatılmaya başlasın mı? 
+      Eğer değeri 
+      %b true 
+      ise video otomatikman oynamaya başlayacaktır.
+    %p
+      %b Not:
+      Green Shoes video desteklemez.
+    
+    
 
     %h3 Devam Edecek...
 
