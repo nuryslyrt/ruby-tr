@@ -180,6 +180,329 @@
     %p
       %b Not:
       Green Shoes video desteklemez.
+    %br
+    
+    %a(name=":back")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:back" style="width: 100%;") 
+        %big 
+          %b :back 
+        » true or false
+    %br
+    
+    %p
+      Ne için: 
+      %i shapes, image, textblocks 
+    %p Diğer elemanların arkasına gönderir.
+    %br
+    
+    :coderay
+      #!Ruby
+      Shoes.app do
+        rect 100, 100, 100, 100, fill: green
+        rect 120, 120, 100, 100, fill: yellow
+        para 'hello', left: 150, top: 150, front: true
+        oval 150, 150, 100, 100, fill: red
+        oval 180, 180, 100, 100, fill: gray, back: true
+      end
+    %br
+    
+    %a(name=":bottom")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:bottom" style="width: 100%;") 
+        %big 
+          %b :bottom 
+        » a number
+    %br
+    
+    %p
+      Ne için: 
+      %i tüm slotlar ve elemanlar 
+    %p
+      Elemanın alt kenarının piksel koordinatını ayarlar. Elemanın alt kenarı 
+      çevreleyenin alt kenarına göre ayarlanır. Yani 
+      %b :bottom => 0 
+      ile eleman alt kenara yapışır. 
+    %p
+      %b Not: 
+      Green Shoes 
+      %b :bottom 
+      stilini desteklemez.
+    %br
+    
+    %a(name=":cap")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:cap" style="width: 100%;") 
+        %big 
+          %b :cap 
+        » :curve or :rect or :project
+    %br
+    
+    %p
+      Ne için: 
+      %i arc, line, shape.
+    %p
+      Eleman çizgilerinin sonlandırmasının nasıl olacağını belirler, yuvarlatılmış 
+      ya da köşeli. Daha fazla bilgi için 
+      %a(href="/kitap/212#cap") cap 
+      metod açıklamasına bakınız.
+    %br
+    
+    %a(name=":center")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:center" style="width: 100%;") 
+        %big 
+          %b :center 
+        » true or false
+    %br
+    
+    %p
+      Ne için: 
+      %i arc, image, oval, rect, shape.
+    %p
+      Elemanın 
+      %b :top 
+      ve 
+      %b :left 
+      koordinatlarının elemanın merkezine bağlanacağını gösterir. Eğer 
+      %b true 
+      olarak ayarlandıysa bu 
+      %a(href="/kitap/212#transform") transform 
+      metodunun 
+      %b :center 
+      ayarlanmasına benzer. 
+    %p
+      %b Not: 
+      Green Shoes 
+      %b :center 
+      stilini desteklemez.
+    %br
+    
+    %a(name=":change")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:change" style="width: 100%;") 
+        %big 
+          %b :change 
+        » a proc
+    %br
+    
+    %p
+      Ne için: 
+      %i edit_box, edit_line, list_box
+    %p
+      %b change 
+      olayı işleyici rutini bu stilde saklanır. Bir örnek olarak edit_box'un 
+      %a(href="/kitap/224#change") change 
+      metoduna bakınız.
+    %br
+    
+    %a(name=":checked")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:checked" style="width: 100%;") 
+        %big 
+          %b :checked 
+        » true or false
+    %br
+    
+    %p
+      Ne için: 
+      %i check, radio 
+    %p
+      Bu checkbox ya da radio button seçili mi? Eğer 
+      %b true 
+      değer verilirse eleman seçili olur. Ayrıca 
+      %a(href="/kitap/223#checked=") checked= 
+      metoduna bakınız.
+    %br
+    
+    %a(name=":choose")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:choose" style="width: 100%;") 
+        %big 
+          %b :choose 
+        » a string
+    %br
+    
+    %p
+      Ne için: 
+      %i list_box 
+    %p
+      Listedeki seçili elemanı belirler. Daha fazla bilgi için 
+      %a(href="/kitap/227#choose") choose.
+    %br
+    
+    %a(name=":click")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:click" style="width: 100%;") 
+        %big 
+          %b :click 
+        » a proc
+    %br
+    
+    %p
+      Ne için: 
+      %i arc, arrow, button, check, flow, image, line, link, oval, radio, rect, shape, stack, star.
+    %p
+      %b click 
+      olayı işleyici rutin bu stilde saklanır. Daha fazlası için 
+      %a(href="/kitap/214#click") click 
+      metoduna bakın.
+    %br
+    
+    
+    %a(name=":curve")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:curve" style="width: 100%;") 
+        %big 
+          %b :curve 
+        » a number
+    %br
+    
+    %p
+      Ne için: 
+      %i background, border, rect.
+    %p
+      Bu dörtköşe elemanların köşelerinin yarıçapı. Örnek olarak 6 ayarlandıysa
+      verilen dörtköşenin köşeleri yarıçapı 6 piksel olacak şekilde yuvarlatılır.
+    %br
+    
+    
+    %a(name=":displace_left")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:displace_left" style="width: 100%;") 
+        %big 
+          %b :displace_left 
+        » a number
+    %br
+    
+    %p
+      Ne için: 
+      %i tüm slot ve elemanlar 
+    %p
+      Bir şekil, text blok yada herhangi bir şeyi sola ya da sağa hareket 
+      ettirir. Bir pozitif sayı verilen sayı kadar piksel sağa kaydırılır; negatif 
+      sayı verilirse sola kaydırılır. Bir nesneyi kaydırmak sayfanın orjinal 
+      yerlerşimini değiştirmez. Bu stili kullanmadan önce 
+      %a(href="/kitap/216#displace") displace 
+      dökümanı mutlaka okuyun, çünkü beklemediğiniz bir görüntü olabilir.
+    %p
+      %b Not: 
+      Green Shoes 
+      %b :displace_left 
+      stilini desteklemez.
+    %br
+    
+    
+    %a(name=":displace_top")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:displace_top" style="width: 100%;") 
+        %big 
+          %b :displace_top 
+        » a number
+    %br
+    
+    %p
+      Ne için: 
+      %i tüm slot ve elemanlar 
+    %p
+      Bir nesneyi yukarı ya da aşağı kaydırır. Pozitif bir sayı nesneyi aşağı doğru 
+      kaydırır; negatif sayı yukarı kaydırır. Bir nesneyi kaydırmak sayfanın orjinal 
+      yerlerşimini değiştirmez. Bu stili kullanmadan önce 
+      %a(href="/kitap/216#displace") displace 
+      dökümanı mutlaka okuyun, çünkü beklemediğiniz bir görüntü olabilir.
+    %p
+      %b Not: 
+      Green Shoes 
+      %b :displace_top 
+      stilini desteklemez.
+    %br 
+    
+    
+    %a(name=":emphasis")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:emphasis" style="width: 100%;") 
+        %big 
+          %b :emphasis 
+        » a string
+    %br
+    
+    %p
+      Ne için: 
+      %i banner, caption, inscription, para, span, subtitle, tagline, title.
+    %p
+      Yazıyı vurgulu yapar (genelde eğik yazı yaparak)
+    %p
+      Bu stilin üç olası değeri vardır:
+    %ul
+      %li "normal" - Yazı dik olarak yazılır
+      %li "oblique" - Yazı eğik yapılır ama roman stilinde
+      %li "italic" - Yazı eğik yapılır ama italik stilinde
+    %br
+    
+    
+    %a(name=":family")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:family" style="width: 100%;") 
+        %big 
+          %b :family 
+        » a string
+    %br
+    
+    %p
+      Ne için: 
+      %i banner, caption, inscription, para, span, subtitle, tagline, title.
+    %p
+      Yazıyı verilen font ailesinde gösterir. String font adını yada adlarını 
+      virgülle ayrılmış font adlarını içermelidir.
+    %br
+    
+    
+    %a(name=":fill")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:fill" style="width: 100%;") 
+        %big 
+          %b :fill 
+        » a hex code, a rgb array or a range of either
+    %br
+    
+    %p
+      Ne için: 
+      %i background, banner, border, caption, inscription, para, line, oval, rect, shape, star, subtitle, tagline, title.
+    %p
+      Arkaplanı boyayan kalemin rengini belirler. Şekiller için bu fill color'dur, 
+      şeklin içinin rengi. Bir textblok için bu renk arkaplanı renklendirir. ( 
+      fosforlu kalemle çizilmiş gibi )
+    %br
+    
+    
     
     
 
