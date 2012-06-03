@@ -503,6 +503,73 @@
     %br
     
     
+    %a(name=":font")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:font" style="width: 100%;") 
+        %big 
+          %b :font 
+        » a string
+    %br
+    
+    %p
+      Ne için: 
+      %i banner, caption, inscription, para, subtitle, tagline, title
+    %p
+      Yazının fontuna ait birçok özelliği belirler. Verilen string oldukça esnek 
+      yapıdadır, ama "[FAMILY-LIST] [STYLE-OPTIONS] [SIZE]" biçimlerinden 
+      birini alabilir. FAMILY-LIST virgülle ayrılmış bir font family listesidir. 
+      STYLE-OPTIONS boşluklarla ayrılmış ve herbiri bir stil belirten kelimeler 
+      listesidir (stil, variant, weight, stretch, gravity gibi). SIZE yazının harf 
+      boyutunu belirler, mutlak boyut için opsiyonel px birimi eklenir. Bu 
+      seçeneklerin herhangi biri olmayabilir. Eğer FAMILY-LIST yoksa default 
+      font Arial kullanılır.
+    %br
+    
+    
+    %a(name=":front")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:front" style="width: 100%;") 
+        %big 
+          %b :front 
+        » true or false
+    %br
+    
+    %p
+      Ne için: 
+      %i shapes, image, textblocks
+    %p
+      Elemanı diğerlerinin önüne getirir.
+    %br
+    
+    
+    %a(name=":group")
+    %br
+    %br
+    %p
+      %a.btn.btn-inverse(href="#:group" style="width: 100%;") 
+        %big 
+          %b :group 
+        » a string
+    %br
+    
+    %p
+      Ne için: 
+      %i radio 
+    %p
+      Radio button'ların hangi gruba ait olduğunu gösterir. Bu ayar olmadığında 
+      aynı slottaki radio buttonları grup olur. Radio buttonların "Gruplanması" 
+      arka arkaya dizilmesi anlamına gelmez, sadece birinin seçilebilir olduğunu 
+      gösterir.
+    %p
+      Bu stile bir string vererek, radio button aynı grup ismine sahip diğer 
+      radio buttonlarla birbirine bağlanır. 
+    %br
+    
+    
     
     
 
